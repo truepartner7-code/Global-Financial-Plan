@@ -762,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ` : ''}
                         </ul>
 
-                        <div class="yield-box" style="padding: 1rem; margin-top: 1.5rem; border-radius: 12px; background: #f8fafc; overflow-x: auto;">
+                        <div style="margin-top: 1.5rem; overflow-x: auto;">
                             <table class="yield-table ${withdrawalPlanSelect.value === 'none' ? 'yield-table-none' : ''}" style="min-width: ${withdrawalPlanSelect.value === 'none' ? '300px' : 'auto'};">
                                 <thead>
                                     ${withdrawalPlanSelect.value === 'none' ? `
@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             return `
-                <div class="yield-box" style="padding: 1.5rem 1rem; border-radius: 12px; background: #f8fafc; display: flex; flex-direction: column; overflow-x: auto;">
+                <div class="yield-box" style="padding: 1.5rem 0.5rem; border-radius: 12px; background: #f8fafc; display: flex; flex-direction: column; overflow-x: auto;">
                     <h4 style="text-align: center; font-size: 1.1rem; color: #1e293b; margin-bottom: 1rem; font-weight: 800;">${title}</h4>
                     
                     <div style="background: #ecfdf5; border: 1px solid #a7f3d0; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center; ${withdrawalPlan === 'none' ? 'display: none;' : ''}">

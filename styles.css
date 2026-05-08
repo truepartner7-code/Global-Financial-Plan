@@ -327,7 +327,10 @@ label {
     padding-bottom: 0.65rem !important;
 }
 
-.yield-table td {
+.yield-table td,
+.yield-table td span,
+.yield-table th {
+    font-size: 0.9rem !important; /* Sweet spot: large enough to read, small enough to prevent scrollbars */
     white-space: nowrap;
 }
 
@@ -534,6 +537,12 @@ label {
         padding-bottom: 0.4rem !important;
         padding-left: 0.1rem !important;
         padding-right: 0.1rem !important;
+    }
+    
+    .yield-table td,
+    .yield-table td span,
+    .yield-table th {
+        font-size: clamp(0.6rem, 3.2vw, 0.9rem) !important;
     }
 
     .withdrawal-box {
