@@ -844,9 +844,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
                             <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
-                                <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${yieldPctActual.toFixed(1)}%</span>
+                                <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${Math.round(yieldPctActual)}%</span>
                                 <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
-                                <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${yieldPctNominal.toFixed(1)}%</span>
+                                <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${Math.round(yieldPctNominal)}%</span>
                             </div>
                         </td>
                     </tr>
@@ -866,9 +866,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
                             <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
-                                <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${yieldPctActual.toFixed(1)}%</span>
+                                <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${Math.round(yieldPctActual)}%</span>
                                 <span style="color: #e2e8f0; font-weight: 400; font-size: 0.8rem;">/</span>
-                                <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${yieldPctNominal.toFixed(1)}%</span>
+                                <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${Math.round(yieldPctNominal)}%</span>
                             </div>
                         </td>
                     </tr>

@@ -321,6 +321,12 @@ label {
     word-break: keep-all;
 }
 
+.yield-table td,
+.yield-table th {
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
+}
+
 .yield-table td {
     white-space: nowrap;
 }
@@ -328,14 +334,14 @@ label {
 .yield-table-none {
     height: 100%;
     /* Automatically stretch rows to fill flex parent */
-    font-size: 1.25rem !important;
+    font-size: 1.15rem !important;
 }
 
 /* Force override inline styles */
 .yield-table-none td,
 .yield-table-none td span,
 .yield-table-none th {
-    font-size: 1.25rem !important;
+    font-size: 1.15rem !important;
 }
 
 .yield-row {
@@ -503,25 +509,31 @@ label {
 
     .yield-table-none {
         height: 100%;
-        font-size: clamp(0.75rem, 3.8vw, 1.05rem) !important;
+        font-size: clamp(0.7rem, 3.5vw, 1.0rem) !important;
     }
     
     .yield-table-none td,
     .yield-table-none td span,
     .yield-table-none th {
-        font-size: clamp(0.75rem, 3.8vw, 1.05rem) !important;
+        font-size: clamp(0.7rem, 3.5vw, 1.0rem) !important;
     }
 
     .yield-table th {
         white-space: normal !important;
         word-break: keep-all;
         line-height: 1.2;
-        padding: 0.2rem 0.1rem !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        padding-left: 0.1rem !important;
+        padding-right: 0.1rem !important;
     }
 
     .yield-table td {
         white-space: nowrap !important;
-        padding: 0.2rem 0.1rem !important;
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.4rem !important;
+        padding-left: 0.1rem !important;
+        padding-right: 0.1rem !important;
     }
 
     .withdrawal-box {
