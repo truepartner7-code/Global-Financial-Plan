@@ -1,0 +1,626 @@
+:root {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #10b981;
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --border-radius: 16px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1400px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Input Section */
+.input-section {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2.5rem;
+    min-width: 0;
+    /* Fix grid overflow */
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.mode-toggle {
+    display: inline-flex;
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.mode-toggle input[type="radio"] {
+    display: none;
+}
+
+.mode-toggle label {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 6px;
+    margin-bottom: 0;
+    transition: all 0.2s;
+}
+
+.mode-toggle label.active {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+#exchange-rate-display {
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #334155;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    background-color: #f8fafc;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.input-with-prefix {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-prefix .prefix {
+    position: absolute;
+    left: 1.2rem;
+    color: var(--text-muted);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.input-with-prefix input {
+    padding-left: 2.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.75rem;
+    accent-color: var(--primary);
+}
+
+.help-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Comparison Grid */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.company-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border-top: 6px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 0;
+    /* Fix grid overflow */
+}
+
+.company-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.company-card.generali {
+    border-top-color: #C8102E;
+}
+
+.company-card.sunlife {
+    border-top-color: #F8B400;
+}
+
+.company-card.chubb {
+    border-top-color: #000000;
+}
+
+.comp-header {
+    text-align: center;
+    margin-bottom: 1.2rem;
+}
+
+.comp-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+}
+
+.generali .comp-title {
+    color: #C8102E;
+}
+
+.sunlife .comp-title {
+    color: #F8B400;
+}
+
+.chubb .comp-title {
+    color: #000000;
+}
+
+.comp-product {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+/* Data List */
+.data-list {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+}
+
+.data-row.highlight {
+    background: #f0fdf4;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem -1rem;
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.data-row.total-usd {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 1rem;
+    border-top: 2px solid #cbd5e1;
+    border-bottom: none;
+    padding-top: 0.75rem;
+}
+
+.yield-box {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1.2rem;
+}
+
+.yield-box h4 {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.yield-table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: normal;
+    word-break: keep-all;
+}
+
+.yield-table td {
+    white-space: nowrap;
+}
+
+.yield-table-none {
+    height: 100%;
+    /* Automatically stretch rows to fill flex parent */
+    font-size: 1.25rem !important;
+}
+
+/* Force override inline styles */
+.yield-table-none td,
+.yield-table-none td span,
+.yield-table-none th {
+    font-size: 1.25rem !important;
+}
+
+.yield-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.yield-row:last-child {
+    border-bottom: none;
+}
+
+.yield-table th,
+.yield-table td {
+    padding: 0.4rem;
+}
+
+.yield-year {
+    font-weight: 700;
+    color: #475569;
+}
+
+.yield-val {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+
+.yield-pct {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 0.95rem;
+    background: #eff6ff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+}
+
+.val-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+}
+
+/* V5 Integration Helpers */
+.rate-date {
+    display: inline;
+}
+
+.version-separator {
+    display: inline;
+}
+
+.v4-summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Mobile Optimization (Version 4.1) */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    .app-container {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+        letter-spacing: -0.03em;
+    }
+
+    .version-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        align-items: center;
+        margin-top: 1.5rem !important;
+    }
+
+    .version-toggle span[id] {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+        padding: 0.8rem 1rem !important;
+        /* Touch target increased */
+    }
+
+    .version-separator {
+        display: none !important;
+    }
+
+    #btn-admin {
+        position: relative !important;
+        margin-top: 0.5rem;
+    }
+
+    .input-section {
+        padding: 1.25rem 0.5rem;
+        overflow: hidden;
+    }
+
+    .section-title {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.8rem !important;
+    }
+
+    .mode-toggle {
+        width: 100%;
+        display: flex;
+    }
+
+    .mode-toggle label {
+        flex: 1;
+        text-align: center;
+        padding: 0.7rem 0.5rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .form-control {
+        padding: 0.75rem 1rem;
+    }
+
+    .company-card {
+        padding: 1.2rem 0.5rem;
+        overflow: hidden;
+    }
+
+    .comp-title {
+        font-size: 1.5rem;
+    }
+
+    .data-row {
+        font-size: 0.9rem;
+    }
+
+    .data-row.total-usd {
+        font-size: 1.2rem;
+    }
+
+    .yield-box {
+        padding: 0.8rem 0.2rem;
+    }
+
+    .yield-val {
+        font-size: 1rem;
+    }
+
+    .yield-table {
+        margin: 0 auto;
+        /* Center align for small tables like 'none' */
+        width: 100% !important;
+        /* Force fit */
+        font-size: clamp(0.55rem, 2vw, 0.8rem) !important;
+        white-space: normal !important;
+        word-break: keep-all;
+    }
+
+    .yield-table-none {
+        height: 100%;
+        font-size: clamp(0.75rem, 3.8vw, 1.05rem) !important;
+    }
+    
+    .yield-table-none td,
+    .yield-table-none td span,
+    .yield-table-none th {
+        font-size: clamp(0.75rem, 3.8vw, 1.05rem) !important;
+    }
+
+    .yield-table th {
+        white-space: normal !important;
+        word-break: keep-all;
+        line-height: 1.2;
+        padding: 0.2rem 0.1rem !important;
+    }
+
+    .yield-table td {
+        white-space: nowrap !important;
+        padding: 0.2rem 0.1rem !important;
+    }
+
+    .withdrawal-box {
+        margin: 0.5rem -0.5rem -0.5rem -0.5rem !important;
+        width: calc(100% + 1rem) !important;
+        border-radius: 6px !important;
+        padding: 1rem 0.5rem !important;
+    }
+
+    .summary-box-v3 {
+        margin: 0 -0.5rem 0.5rem -0.5rem !important;
+        width: calc(100% + 1rem) !important;
+        border-radius: 6px !important;
+        padding: 1rem 0.5rem !important;
+    }
+
+    .v4-summary-box {
+        margin: 0 -0.5rem 0.5rem -0.5rem !important;
+        width: calc(100% + 1rem) !important;
+        border-radius: 6px !important;
+    }
+
+    .yield-box {
+        margin-left: -0.5rem !important;
+        margin-right: -0.5rem !important;
+        width: calc(100% + 1rem) !important;
+        border-radius: 6px !important;
+        padding: 0.8rem 0.2rem;
+    }
+
+    #exchange-rate-display {
+        font-size: clamp(0.7rem, 3.5vw, 0.85rem) !important;
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    .v4-summary-item {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+    }
+
+    .v4-promo-value {
+        width: 100%;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 0.5rem;
+    }
+
+    /* Admin UI Mobile fixes */
+    #admin-modal>div {
+        padding: 1.5rem 1rem !important;
+        width: 95% !important;
+    }
+
+    div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    div[style*="width: 50%"] {
+        width: 100% !important;
+    }
+
+    div[style*="margin-top: 2rem; display: flex; justify-content: space-between"] {
+        flex-direction: column;
+    }
+
+    #btn-admin-reset {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .summary-subtext {
+        display: block;
+        margin-top: 0.2rem;
+        font-size: 0.95rem;
+    }
+
+    div[style*="gap: 0.5rem"] {
+        width: 100%;
+        display: flex;
+    }
+
+    #btn-admin-close-bottom,
+    #btn-admin-save {
+        flex: 1;
+        padding: 0.75rem 0 !important;
+        text-align: center;
+    }
+}
+
+.summary-subtext {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+}

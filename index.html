@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글로벌 유배당저축 프로모션 예시표</title>
+    <meta property="og:title" content="글로벌 유배당저축 프로모션 예시표" />
+    <meta property="og:description" content="글로벌 유배당저축보험 (Generali, Sun Life, CHUBB) 프로모션 예시표 및 통합비교/심층분석 시뮬레이터" />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1 class="page-title">글로벌 유배당저축 프로모션 예시표 (<span class="current-date">0000년 00월</span>)</h1>
+            <div class="version-toggle" style="margin-top: 2rem; margin-bottom: 2rem; position: relative;">
+                <span id="btn-v3"
+                    style="cursor: pointer; font-size: 1.1rem; font-weight: 800; color: #fff; background: #10b981; padding: 0.4rem 1rem; border-radius: 20px; transition: all 0.2s; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);">통합비교</span>
+                <span class="version-separator" style="color: #cbd5e1; font-weight: 300; margin: 0 0.5rem;"> | </span>
+                <span id="btn-v4"
+                    style="cursor: pointer; font-size: 1.1rem; font-weight: 600; color: #64748b; padding: 0.4rem 1rem; border-radius: 20px; transition: all 0.2s;">심층분석</span>
+                <button id="btn-admin"
+                    style="position: absolute; right: 0; top: 0; background: transparent; border: none; font-size: 1.5rem; cursor: pointer; color: #94a3b8; transition: color 0.2s;"
+                    title="프로모션 관리자 설정">⚙️</button>
+            </div>
+        </header>
+
+        <section class="input-section">
+            <h2 class="section-title"
+                style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                가입 조건 설정
+                <div class="mode-toggle">
+                    <input type="radio" id="mode-forward" name="calcMode" value="forward" checked>
+                    <label for="mode-forward" id="label-forward" class="active">정산 (가입금액 기준)</label>
+
+                    <input type="radio" id="mode-reverse" name="calcMode" value="reverse">
+                    <label for="mode-reverse" id="label-reverse">역산 (원화예산 기준)</label>
+                </div>
+            </h2>
+            <div class="input-grid">
+                <!-- 환율 설정 -->
+                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 0.5rem;">
+                    <label>적용 환율 설정</label>
+                    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                        <div class="mode-toggle" style="margin: 0;">
+                            <input type="radio" id="rate-auto" name="rateMode" value="auto" checked>
+                            <label for="rate-auto" id="label-rate-auto" class="active"
+                                style="padding: 0.4rem 1rem; font-size: 0.9rem;">자동 (실시간)</label>
+
+                            <input type="radio" id="rate-manual" name="rateMode" value="manual">
+                            <label for="rate-manual" id="label-rate-manual"
+                                style="padding: 0.4rem 1rem; font-size: 0.9rem;">직접 입력</label>
+                        </div>
+                        <div id="manual-rate-group" style="display: none; align-items: center; gap: 0.5rem;">
+                            <div class="input-with-prefix" style="width: 130px;">
+                                <input type="text" id="manualRate" class="form-control" value="1,400"
+                                    style="padding-left: 0.5rem; text-align: right;">
+                            </div>
+                            <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">원 / 1 USD</span>
+                        </div>
+                        <div id="exchange-rate-display"
+                            style="padding: 0.5rem 1rem; background: #eff6ff; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: var(--primary); border: 1px solid #bfdbfe; margin-left: auto;">
+                            환율 정보 불러오는 중...</div>
+                    </div>
+                </div>
+
+                <!-- 정산 입력 -->
+                <div class="form-group" id="forward-input-group">
+                    <label for="premium">연간 보험료 (USD)</label>
+                    <div class="input-with-prefix">
+                        <span class="prefix">$</span>
+                        <input type="text" id="premium" class="form-control" value="50,000">
+                    </div>
+                </div>
+
+                <!-- 역산 입력 -->
+                <div class="form-group" id="reverse-input-group" style="display: none;">
+                    <label for="budgetKrw">총 납입 예산 (원화 KRW)</label>
+                    <div class="input-with-prefix">
+                        <span class="prefix">₩</span>
+                        <input type="text" id="budgetKrw" class="form-control" value="100,000,000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="term">납입 기간</label>
+                    <select id="term" class="form-control">
+                        <option value="2" selected>2년납</option>
+                        <option value="5">5년납</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="v3-control" style="display: flex;">
+                    <label>인출 시나리오</label>
+                    <select id="withdrawalPlan" class="form-control" style="cursor: pointer;">
+                        <option value="none">거치 (인출 안함)</option>
+                        <option value="10yr">10년말 후 (가입금액의 10% 매년 인출)</option>
+                        <option value="20yr">20년말 후 (가입금액의 20% 매년 인출)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="v4-control" style="display: none;">
+                    <label>보험사 선택</label>
+                    <select id="companySelect" class="form-control" style="cursor: pointer;">
+                        <optgroup label="Generali">
+                            <option value="generali">Lion Achiever Elite</option>
+                        </optgroup>
+                        <optgroup label="Sun Life">
+                            <option value="sunlife">SunJoy Global II</option>
+                        </optgroup>
+                        <optgroup label="CHUBB">
+                            <option value="chubb">MyLegacy Plan V</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group toggle-group" style="grid-column: 1 / -1;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="prepay" checked>
+                        <span>전액 선납 적용 (Pre-payment)</span>
+                    </label>
+                    <small class="help-text">체크 시 납입기간 전체에 대한 잔여 보험료를 선납 처리하여 할인 혜택을 적용합니다.</small>
+                </div>
+
+                <div class="summary-box" id="global-summary-box"
+                    style="grid-column: 1 / -1; background: #eff6ff; padding: 1.5rem; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #bfdbfe; margin-top: 0.5rem;">
+                    <span id="summary-label" style="font-size: 1.3rem; font-weight: 800; color: #1e3a8a;">총 명목 가입금액
+                        <span class="summary-subtext">(연간 보험료 × 납입기간)</span></span>
+                    <span id="summary-val-display"
+                        style="font-size: 1.8rem; font-weight: 800; color: #1d4ed8;">$0</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison-grid" class="comparison-grid">
+            <!-- 자바스크립트로 렌더링 -->
+        </section>
+
+        <footer
+            style="text-align: center; margin-top: 4rem; margin-bottom: 3rem; padding-bottom: 2rem; color: #94a3b8; font-size: 0.9rem; letter-spacing: 0.5px;">
+            Designed & Developed by <strong style="color: #64748b;">CHRIS / TEAM BRIDGE</strong>
+        </footer>
+    </div>
+
+    <!-- Admin Settings Modal -->
+    <div id="admin-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1rem;">
+                <h2 style="margin: 0; color: #0f172a; font-size: 1.5rem;">프로모션 설정 (Admin)</h2>
+                <button id="btn-close-admin"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b;">&times;</button>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+                <label>시뮬레이션 대상 기간 (년/분기 선택)</label>
+                <div style="display: flex; gap: 1rem;">
+                    <input type="number" id="admin-year" class="form-control" value="2026" style="width: 100px;">
+                    <select id="admin-quarter" class="form-control" style="width: 120px;">
+                        <option value="1">1분기</option>
+                        <option value="2" selected>2분기</option>
+                        <option value="3">3분기</option>
+                        <option value="4">4분기</option>
+                    </select>
+                </div>
+                <small class="help-text">선택한 분기의 프로모션이 예시표에 적용되며 제목에도 표시됩니다. 아래에서 해당 분기의 세부 할인율을 수정할 수 있습니다.</small>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 1.5rem 0;">
+
+            <div
+                style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                <h3
+                    style="margin-top: 0; margin-bottom: 0.5rem; color: #334155; font-size: 1.1rem; display: flex; justify-content: space-between;">
+                    Generali (Lion Achiever Elite)
+                </h3>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">2년납 가입금액별 보너스 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>100만 이상</small><input type="number" step="0.1" id="gen-2y-100" class="form-control">
+                        </div>
+                        <div><small>50만 이상</small><input type="number" step="0.1" id="gen-2y-50" class="form-control">
+                        </div>
+                        <div><small>기본</small><input type="number" step="0.1" id="gen-2y-base" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">5년납 가입금액별 보너스 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>20만 이상</small><input type="number" step="0.1" id="gen-5y-20" class="form-control">
+                        </div>
+                        <div><small>기본</small><input type="number" step="0.1" id="gen-5y-base" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.9rem; font-weight: 600;">선납 이자율 (%)</label>
+                    <div style="margin-top: 0.25rem; width: 50%;">
+                        <input type="number" step="0.1" id="gen-prepay" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid #e2e8f0;">
+                <h3
+                    style="margin-top: 0; margin-bottom: 0.5rem; color: #334155; font-size: 1.1rem; display: flex; justify-content: space-between;">
+                    Sun Life (SunJoy Global II)
+                </h3>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">2년납 가입금액별 보너스 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>10만 이상</small><input type="number" step="0.1" id="sun-2y-10" class="form-control">
+                        </div>
+                        <div><small>기본</small><input type="number" step="0.1" id="sun-2y-base" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="font-size: 0.9rem; font-weight: 600;">5년납 가입금액별 보너스 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>100만 이상</small><input type="number" step="0.1" id="sun-5y-100" class="form-control">
+                        </div>
+                        <div><small>20만 이상</small><input type="number" step="0.1" id="sun-5y-20" class="form-control">
+                        </div>
+                        <div><small>10만 이상</small><input type="number" step="0.1" id="sun-5y-10" class="form-control">
+                        </div>
+                        <div><small>5만 이상</small><input type="number" step="0.1" id="sun-5y-5" class="form-control">
+                        </div>
+                        <div><small>3만 이상</small><input type="number" step="0.1" id="sun-5y-3" class="form-control">
+                        </div>
+                        <div><small>기본</small><input type="number" step="0.1" id="sun-5y-base" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.9rem; font-weight: 600;">선납 이자율 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>2년차</small><input type="number" step="0.1" id="sun-prepay-1" class="form-control">
+                        </div>
+                        <div><small>3~5년차</small><input type="number" step="0.1" id="sun-prepay-2" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <h3
+                    style="margin-top: 0; margin-bottom: 0.5rem; color: #334155; font-size: 1.1rem; display: flex; justify-content: space-between;">
+                    CHUBB (MyLegacy Plan V)
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="font-size: 0.9rem; font-weight: 600;">2년납 1년차 할인 (%)</label>
+                        <input type="number" step="0.1" id="chubb-2y" class="form-control" style="margin-top: 0.25rem;">
+                    </div>
+                    <div>
+                        <label style="font-size: 0.9rem; font-weight: 600;">5년납 매년 할인 (%)</label>
+                        <input type="number" step="0.1" id="chubb-5y" class="form-control" style="margin-top: 0.25rem;">
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.9rem; font-weight: 600;">선납 이자율 (%)</label>
+                    <div style="margin-top: 0.25rem; width: 50%;">
+                        <input type="number" step="0.1" id="chubb-prepay" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; justify-content: space-between; gap: 1rem;">
+                <button id="btn-admin-reset"
+                    style="padding: 0.75rem 1.5rem; border-radius: 8px; border: 1px solid #ef4444; background: white; color: #ef4444; font-weight: 600; cursor: pointer; transition: all 0.2s;">현재
+                    분기 기본값으로 복구</button>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="btn-admin-close-bottom"
+                        style="padding: 0.75rem 1.5rem; border-radius: 8px; border: 1px solid #cbd5e1; background: white; color: #475569; font-weight: 600; cursor: pointer;">취소</button>
+                    <button id="btn-admin-save"
+                        style="padding: 0.75rem 1.5rem; border-radius: 8px; border: none; background: #3b82f6; color: white; font-weight: 600; cursor: pointer;">저장
+                        및 적용</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
