@@ -328,10 +328,15 @@ label {
 }
 
 .yield-table td,
-.yield-table td span,
-.yield-table th {
-    font-size: 0.9rem !important; /* Sweet spot: large enough to read, small enough to prevent scrollbars */
+.yield-table td span {
+    font-size: clamp(0.65rem, 0.9vw, 0.9rem) !important; /* Sweet spot: scales down automatically */
     white-space: nowrap;
+}
+
+.yield-table th {
+    font-size: clamp(0.6rem, 0.8vw, 0.85rem) !important;
+    white-space: nowrap !important;
+    line-height: 1.2;
 }
 
 .yield-table-none {
@@ -361,7 +366,7 @@ label {
 
 .yield-table th,
 .yield-table td {
-    padding: 0.4rem;
+    padding: 0.2rem;
 }
 
 .yield-year {
@@ -522,8 +527,7 @@ label {
     }
 
     .yield-table th {
-        white-space: normal !important;
-        word-break: keep-all;
+        white-space: nowrap !important;
         line-height: 1.2;
         padding-top: 0.4rem !important;
         padding-bottom: 0.4rem !important;
@@ -542,7 +546,7 @@ label {
     .yield-table td,
     .yield-table td span,
     .yield-table th {
-        font-size: clamp(0.6rem, 3.2vw, 0.9rem) !important;
+        font-size: clamp(0.55rem, 2.5vw, 0.85rem) !important;
     }
 
     .withdrawal-box {
@@ -598,6 +602,10 @@ label {
     #admin-modal>div {
         padding: 1.5rem 1rem !important;
         width: 95% !important;
+    }
+
+    .v4-table-wrapper {
+        padding: 0 0.2rem !important;
     }
 
     div[style*="grid-template-columns: 1fr 1fr 1fr"] {
