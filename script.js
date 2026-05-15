@@ -1026,6 +1026,45 @@ document.addEventListener('DOMContentLoaded', () => {
         
         grid.insertAdjacentHTML('beforeend', cardHtml);
         }
+
+        // --- Goal 2: Chart Data Preparation ---
+        let chartTargetComp;
+        let chartTargetPlan = withdrawalPlanSelect.value;
+        if (currentVersion === 'v4') {
+            chartTargetComp = companies.find(c => c.id === companySelect.value);
+            chartTargetPlan = 'none'; // Default to non-withdrawal chart in V4
+        } else {
+            chartTargetComp = companies[0]; // V3 uses Generali by default for chart
+        }
+
+        if (chartTargetComp && typeof window.renderCharts === 'function') {
+            const chartRes = chartTargetComp.getCalc(term, premiumUSD, isPrepay);
+            const chartData = [];
+            for (let y = 1; y <= 30; y++) {
+                let withdrawalAmt = 0;
+                let svAmt = 0;
+                if (chartTargetPlan === 'none') {
+                    svAmt = chartRes.yields.none(y);
+                } else if (chartTargetPlan === '10yr') {
+                    const row = chartRes.yields.yr10(y);
+                    withdrawalAmt = row.withdrawn || 0;
+                    svAmt = row.surrender || 0;
+                } else if (chartTargetPlan === '20yr') {
+                    const row = chartRes.yields.yr20(y);
+                    withdrawalAmt = row.withdrawn || 0;
+                    svAmt = row.surrender || 0;
+                }
+                
+                chartData.push({
+                    year: y,
+                    principal: Math.min(y, term) * premiumUSD,
+                    refund: chartTargetPlan === 'none' ? svAmt : svAmt,
+                    withdrawal: withdrawalAmt,
+                    sv: svAmt
+                });
+            }
+            window.renderCharts(chartData, chartTargetPlan);
+        }
     };
 
     const updateWithdrawalOptions = () => {
@@ -1058,6 +1097,99 @@ document.addEventListener('DOMContentLoaded', () => {
             renderGrid();
         });
     });
+
+    // --- Goal 2: Save, Load, Copy Session ---
+    const customerNameInput = document.getElementById('customerName');
+    const btnSaveSession = document.getElementById('btn-save-session');
+    const btnLoadSession = document.getElementById('btn-load-session');
+    const btnCopyKakao = document.getElementById('btn-copy-kakao');
+
+    if (btnSaveSession) {
+        btnSaveSession.addEventListener('click', () => {
+            const name = customerNameInput.value.trim();
+            if (!name) return alert('고객명을 입력해 주세요.');
+            
+            const sessionData = {
+                version: currentVersion,
+                calcMode: document.querySelector('input[name="calcMode"]:checked').value,
+                rateMode: document.querySelector('input[name="rateMode"]:checked').value,
+                manualRate: document.getElementById('manualRate').value,
+                premium: premiumInput.value,
+                budgetKrw: budgetKrwInput.value,
+                term: termSelect.value,
+                withdrawalPlan: withdrawalPlanSelect.value,
+                company: companySelect.value,
+                prepay: prepayCheckbox.checked
+            };
+            localStorage.setItem(`session_${name}`, JSON.stringify(sessionData));
+            alert(`${name} 고객님의 상담 세션이 안전하게 저장되었습니다.`);
+        });
+    }
+
+    if (btnLoadSession) {
+        btnLoadSession.addEventListener('click', () => {
+            const name = customerNameInput.value.trim();
+            if (!name) return alert('불러올 고객명을 입력해 주세요.');
+            
+            const saved = localStorage.getItem(`session_${name}`);
+            if (!saved) return alert(`[${name}] 고객님의 저장된 세션이 없습니다.`);
+            
+            const data = JSON.parse(saved);
+            
+            if (data.version === 'v3' && btnV3) btnV3.click();
+            else if (data.version === 'v4' && btnV4) btnV4.click();
+            
+            const modeRadio = document.querySelector(`input[name="calcMode"][value="${data.calcMode}"]`);
+            if (modeRadio) { modeRadio.checked = true; modeRadio.dispatchEvent(new Event('change')); }
+            
+            const rateRadio = document.querySelector(`input[name="rateMode"][value="${data.rateMode}"]`);
+            if (rateRadio) { rateRadio.checked = true; rateRadio.dispatchEvent(new Event('change')); }
+            
+            document.getElementById('manualRate').value = data.manualRate || '';
+            premiumInput.value = data.premium || '';
+            budgetKrwInput.value = data.budgetKrw || '';
+            termSelect.value = data.term || '2';
+            withdrawalPlanSelect.value = data.withdrawalPlan || 'none';
+            companySelect.value = data.company || 'generali';
+            prepayCheckbox.checked = data.prepay !== false;
+            
+            renderGrid();
+            alert(`[${name}] 고객님의 세션을 성공적으로 불러왔습니다.`);
+        });
+    }
+
+    if (btnCopyKakao) {
+        btnCopyKakao.addEventListener('click', () => {
+            const mode = document.querySelector('input[name="calcMode"]:checked').value;
+            const term = parseInt(termSelect.value);
+            const isPrepay = prepayCheckbox.checked;
+            let premiumUSD = parseFloat(premiumInput.value.replace(/,/g, '')) || 0;
+            if (mode === 'reverse') {
+                const targetKrw = parseFloat(budgetKrwInput.value.replace(/,/g, '')) || 0;
+                premiumUSD = findPremiumForTargetActual(companies[0], targetKrw, term, isPrepay);
+            }
+            const compId = currentVersion === 'v4' ? companySelect.value : 'generali';
+            const comp = companies.find(c => c.id === compId) || companies[0];
+            const res = comp.getCalc(term, premiumUSD, isPrepay);
+            const totalUSD = res.totalActual;
+            const totalKRW = totalUSD * exRate;
+
+            const text = `📊 [글로벌 유배당저축 프로모션 브리핑]
+- 상품명: ${comp.name}
+- 납입기간: ${term}년납 (${isPrepay ? '전액 선납' : '기본'})
+- 연간 보험료: $${new Intl.NumberFormat('en-US').format(premiumUSD)}
+- 총 실 납입액: $${new Intl.NumberFormat('en-US').format(totalUSD)} (약 ${new Intl.NumberFormat('ko-KR').format(Math.round(totalKRW / 10000) * 10000)}원)
+- 프로모션 혜택: $${new Intl.NumberFormat('en-US').format(res.totalDiscount)} 할인
+
+💡 거치 시 해약환급금 예시
+- 10년차: $${new Intl.NumberFormat('en-US').format(res.yields.none(10))}
+- 20년차: $${new Intl.NumberFormat('en-US').format(res.yields.none(20))}
+`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('카카오톡 브리핑 요약본이 클립보드에 복사되었습니다! 카톡 창에 붙여넣기 해주세요.');
+            });
+        });
+    }
 
     renderGrid();
 });
