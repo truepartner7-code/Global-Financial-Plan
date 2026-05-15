@@ -662,10 +662,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(currentSv)}</span>
+                                    <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(currentSv)}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.85); transform-origin: right;">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${formatYieldPercent(yieldPctActual)}</span>
                                         <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${formatYieldPercent(yieldPctNominal)}</span>
@@ -678,16 +678,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
+                                    <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(currentSv)}</span>
+                                    <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(currentSv)}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(totalValue)}</span>
+                                    <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(totalValue)}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.85); transform-origin: right;">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${formatYieldPercent(yieldPctActual)}</span>
                                         <span style="color: #e2e8f0; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${formatYieldPercent(yieldPctNominal)}</span>
@@ -840,10 +840,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                            <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(currentSv)}</span>
+                            <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(currentSv)}</span>
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                            <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                            <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.85); transform-origin: right;">
                                 <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${Math.round(yieldPctActual)}%</span>
                                 <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                 <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${Math.round(yieldPctNominal)}%</span>
@@ -856,16 +856,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <tr>
                         <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                            <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
+                            <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                            <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(currentSv)}</span>
+                            <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(currentSv)}</span>
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                            <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${formatUSD(totalValue)}</span>
+                            <span style="display: inline-block; transform: scaleX(0.85); transform-origin: right;">${formatUSD(totalValue)}</span>
                         </td>
                         <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                            <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                            <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.85); transform-origin: right;">
                                 <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${Math.round(yieldPctActual)}%</span>
                                 <span style="color: #e2e8f0; font-weight: 400; font-size: 0.8rem;">/</span>
                                 <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${Math.round(yieldPctNominal)}%</span>
