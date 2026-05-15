@@ -524,7 +524,7 @@ label {
     .yield-table-none td,
     .yield-table-none td span,
     .yield-table-none th {
-        font-size: clamp(0.7rem, 3.5vw, 1.0rem) !important;
+        font-size: clamp(0.85rem, 4vw, 1.15rem) !important;
     }
 
     .yield-table th {
