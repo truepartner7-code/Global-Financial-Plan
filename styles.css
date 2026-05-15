@@ -23,7 +23,7 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-main);
-    line-height: 1.8;
+    line-height: 1.6;
     display: flex;
     justify-content: center;
     padding: 2rem 1rem;
@@ -323,8 +323,8 @@ label {
 
 .yield-table td,
 .yield-table th {
-    padding-top: 0.95rem !important;
-    padding-bottom: 0.95rem !important;
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
 }
 
 .yield-table td,
@@ -654,80 +654,101 @@ label {
     font-weight: 600;
     color: #64748b;
 }
-/* --- Goal: PDF Export Print Layout --- */
-.pdf-export-mode {
-    background: #ffffff !important;
-    padding: 0 !important;
-}
+/* --- Native Print (PDF Export) Layout --- */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 5mm; /* 최소 여백 */
+    }
+    
+    /* Global Print Resets */
+    body {
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        
+        /* 배율 맞춤설정 62% 하드코딩 (WebKit 계열 완벽 지원) */
+        zoom: 0.62 !important;
+    }
+    
+    /* Hide Unnecessary UI Elements */
+    #btn-download-pdf-adv,
+    #btn-admin,
+    .version-toggle,
+    .mode-toggle,
+    input[type="radio"] + label {
+        display: none !important;
+    }
+    
+    /* Show only the active labels as text if needed, or hide toggles fully for a cleaner print */
+    .mode-toggle { display: none !important; }
 
-.pdf-export-mode .app-container {
-    width: 100% !important;
-    max-width: none !important;
-    padding: 0 1rem !important;
-    margin: 0 !important;
-    box-shadow: none !important;
-}
+    /* App Container Fit - 모바일에서도 PC와 완벽히 동일한 레이아웃 강제 (고정 너비) */
+    .app-container {
+        width: 1200px !important;
+        max-width: 1200px !important;
+        min-width: 1200px !important;
+        padding: 0 !important;
+        margin: 0 auto !important; /* 중앙 정렬 */
+        box-shadow: none !important;
+    }
+    
+    /* Ensure shadows are removed for clean flat vector PDF */
+    * {
+        box-shadow: none !important;
+    }
+    
+    .input-section {
+        border: 2px solid #e2e8f0 !important;
+        margin-bottom: 2rem !important;
+        padding: 1.5rem !important;
+    }
 
-/* Enlarge Titles and Global Layout */
-.pdf-export-mode .page-title {
-    font-size: 3rem !important;
-    margin-bottom: 2rem !important;
-}
+    /* Force 3 columns on print (V3 Mode) */
+    .comparison-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        page-break-inside: avoid;
+    }
 
-.pdf-export-mode .input-section {
-    box-shadow: none !important;
-    border: 2px solid #e2e8f0 !important;
-    margin-bottom: 3rem !important;
-    padding: 3rem 2rem !important;
-}
+    /* Force 3 columns on print (V4 Mode 심층분석 - 거치형 + 인출플랜 2개) */
+    .v4-tables-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 1rem !important;
+        width: 100% !important;
+        page-break-inside: avoid;
+    }
 
-.pdf-export-mode .input-section label {
-    margin-bottom: 1rem !important;
-}
+    .company-card {
+        page-break-inside: avoid;
+        border-top-width: 8px !important;
+    }
 
-.pdf-export-mode .form-control, .pdf-export-mode .input-with-prefix .prefix {
-    padding: 1rem 1.5rem !important;
-}
+    /* Make sure borders and colors render exactly */
+    .company-card.generali { border-top-color: #C8102E !important; }
+    .company-card.sunlife { border-top-color: #F8B400 !important; }
+    .company-card.chubb { border-top-color: #000000 !important; }
+    
+    /* Yield table colors and layout */
+    .yield-pct {
+        background: #eff6ff !important;
+        color: #3b82f6 !important; /* var(--primary) */
+    }
 
-.pdf-export-mode .input-with-prefix input {
-    padding-left: 3rem !important;
-}
-
-/* Maintain Spacious Company Cards & Values (No Font Size Overrides) */
-.pdf-export-mode .comparison-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 2rem !important;
-    width: 100% !important;
-}
-
-.pdf-export-mode .company-card {
-    padding: 2.5rem 1.5rem !important;
-}
-
-.pdf-export-mode .comp-title {
-    margin-bottom: 0.5rem !important;
-}
-
-.pdf-export-mode .comp-product {
-    margin-bottom: 1.5rem !important;
-}
-
-.pdf-export-mode .data-list li {
-    padding: 1.2rem 0 !important;
-}
-
-.pdf-export-mode .yield-box {
-    margin-top: 2rem !important;
-    padding: 1.5rem !important;
-}
-
-.pdf-export-mode .yield-box h4 {
-    margin-bottom: 1.5rem !important;
-}
-
-/* Remove generic th/td font size override, but keep padding and line height */
-.pdf-export-mode table:not(.yield-table) th, 
-.pdf-export-mode table:not(.yield-table) td {
-    padding: 1.5rem 1rem !important;
-    line-height: 1.8 !important;
+    /* Maintain spaciousness but fit to page */
+    table:not(.yield-table) th, 
+    table:not(.yield-table) td {
+        padding: 1.2rem 0.8rem !important;
+        line-height: 1.7 !important;
+    }
+    
+    /* Protect the footer */
+    footer {
+        margin-top: 2rem !important;
+        padding-bottom: 0 !important;
+        page-break-inside: avoid;
+    }
 }

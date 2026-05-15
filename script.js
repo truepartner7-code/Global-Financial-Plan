@@ -134,29 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const setupNumberInput = (input) => {
-        input.addEventListener('input', (e) => {
-            let val = e.target.value.replace(/[^0-9.]/g, ''); // Block negative signs, letters, specials
-            const parts = val.split('.');
-            if (parts.length > 2) parts.pop(); // Prevent multiple decimals
-            if (parts[0]) parts[0] = parseInt(parts[0], 10).toLocaleString('en-US'); // Comma formatting
-            e.target.value = parts.join('.');
-            if (typeof renderGrid === 'function') renderGrid();
-        });
-    };
-    if (premiumInput) setupNumberInput(premiumInput);
-    if (budgetKrwInput) setupNumberInput(budgetKrwInput);
-
-    const fetchWithTimeout = (url, options, timeout = 3000) => {
-        return Promise.race([
-            fetch(url, options),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), timeout))
-        ]);
-    };
-
-    // Environment variables (e.g. process.env.API_KEY) are typically used in build tools like Vite/Next.js. 
-    // Since this uses an open API without a key, we do not require a .env file here.
-    fetchWithTimeout('https://open.er-api.com/v6/latest/USD', {}, 3000)
+    fetch('https://open.er-api.com/v6/latest/USD')
         .then(response => response.json())
         .then(data => {
             const baseRate = data.rates.KRW;
@@ -165,16 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateExRateDisplay();
         })
         .catch(err => {
-            console.warn('환율 API 로딩 실패 또는 지연(3초 초과):', err);
+            console.error('환율 불러오기 실패', err);
             isExRateFetched = false;
-            
-            // Switch to manual mode automatically
-            const manualRadio = document.querySelector('input[name="rateMode"][value="manual"]');
-            if (manualRadio) {
-                manualRadio.checked = true;
-                manualRadio.dispatchEvent(new Event('change'));
-                alert('환율 서버 응답이 지연되어 [직접 입력] 모드로 전환되었습니다. 환율을 직접 입력해 주세요.');
-            }
             updateExRateDisplay();
         });
 
@@ -1016,7 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </ul>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1rem;">
+                <div class="v4-tables-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1rem;">
                     ${generateTableHtml('none', '거치형 (인출 안함)')}
                     ${generateTableHtml('10yr', `10년말 후 인출플랜 (매년 ${term === 2 ? '10%' : (comp.id === 'chubb' ? '8.9%' : '9%')})`)}
                     ${generateTableHtml('20yr', `20년말 후 인출플랜 (매년 ${term === 2 ? '20%' : '18%'})`)}
@@ -1047,71 +1017,23 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('change', renderGrid);
     });
 
-    // --- Advanced PDF Export Logic ---
+    [premiumInput, budgetKrwInput].forEach(inputEl => {
+        inputEl.addEventListener('input', (e) => {
+            let raw = e.target.value.replace(/[^0-9]/g, '');
+            if(raw) {
+                e.target.value = new Intl.NumberFormat('en-US').format(parseInt(raw, 10));
+            } else {
+                e.target.value = '';
+            }
+            renderGrid();
+        });
+    });
+
+    // --- Native PDF Print Export Logic ---
     const btnDownloadPdfAdv = document.getElementById('btn-download-pdf-adv');
     if (btnDownloadPdfAdv) {
-        btnDownloadPdfAdv.addEventListener('click', async () => {
-            const container = document.querySelector('.app-container');
-            const body = document.body;
-            
-            // UI Hide & Mode Add
-            const adminBtn = document.getElementById('btn-admin');
-            const versionToggle = document.querySelector('.version-toggle');
-            
-            if (adminBtn) adminBtn.style.display = 'none';
-            if (versionToggle) versionToggle.style.display = 'none';
-            btnDownloadPdfAdv.style.display = 'none';
-            
-            body.classList.add('pdf-export-mode');
-
-            // Allow DOM to apply styles
-            await new Promise(resolve => setTimeout(resolve, 100));
-
-            try {
-                // Generate Canvas
-                const canvas = await window.html2canvas(container, {
-                    scale: 2, // High resolution
-                    useCORS: true,
-                    logging: false,
-                    scrollY: -window.scrollY // fix scrolling bugs
-                });
-
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                
-                // jsPDF A4 configuration
-                const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const margin = 10; // 10mm margin
-                
-                // Calculate dimensions for Fit-to-page
-                const imgProps = pdf.getImageProperties(imgData);
-                const ratio = imgProps.width / imgProps.height;
-                
-                let drawWidth = pdfWidth - (margin * 2);
-                let drawHeight = drawWidth / ratio;
-                
-                if (drawHeight > pdfHeight - (margin * 2)) {
-                    drawHeight = pdfHeight - (margin * 2);
-                    drawWidth = drawHeight * ratio;
-                }
-                
-                // Center horizontally if scaling bounded by height
-                const xOffset = margin + ((pdfWidth - (margin * 2) - drawWidth) / 2);
-                
-                pdf.addImage(imgData, 'JPEG', xOffset, margin, drawWidth, drawHeight);
-                pdf.save('글로벌유배당저축_상담리포트.pdf');
-
-            } catch (error) {
-                console.error("PDF 생성 오류:", error);
-                alert("PDF 생성 중 문제가 발생했습니다.");
-            } finally {
-                // Restore UI
-                if (adminBtn) adminBtn.style.display = '';
-                if (versionToggle) versionToggle.style.display = '';
-                btnDownloadPdfAdv.style.display = 'flex';
-                body.classList.remove('pdf-export-mode');
-            }
+        btnDownloadPdfAdv.addEventListener('click', () => {
+            window.print();
         });
     }
 
