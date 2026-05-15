@@ -547,7 +547,7 @@ label {
     .yield-table td,
     .yield-table td span,
     .yield-table th {
-        font-size: clamp(0.7rem, 3vw, 0.9rem) !important;
+        font-size: clamp(0.7rem, 3.5vw, 0.95rem) !important;
     }
 
     .withdrawal-box {
