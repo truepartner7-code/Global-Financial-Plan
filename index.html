@@ -9,12 +9,6 @@
     <meta property="og:description" content="글로벌 유배당저축보험 (Generali, Sun Life, CHUBB) 프로모션 예시표 및 통합비교/심층분석 시뮬레이터" />
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-
-    <!-- React & Recharts for Goal 2 -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
@@ -34,13 +28,6 @@
         </header>
 
         <section class="input-section">
-            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; background: #f8fafc; padding: 1rem; border-radius: 8px;">
-                <label for="customerName" style="margin: 0; font-weight: 700;">고객명:</label>
-                <input type="text" id="customerName" class="form-control" style="width: 150px; padding: 0.5rem;" placeholder="예: 홍길동">
-                <button id="btn-save-session" style="padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">저장</button>
-                <button id="btn-load-session" style="padding: 0.5rem 1rem; background: #10b981; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">불러오기</button>
-                <button id="btn-copy-kakao" style="padding: 0.5rem 1rem; background: #fef01b; color: #3a1d1d; border: none; border-radius: 6px; cursor: pointer; font-weight: 800; margin-left: auto;">💬 카카오톡 요약 복사</button>
-            </div>
             <h2 class="section-title"
                 style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                 가입 조건 설정
@@ -149,11 +136,6 @@
 
         <section id="comparison-grid" class="comparison-grid">
             <!-- 자바스크립트로 렌더링 -->
-        </section>
-
-        <section id="chart-section" style="margin-top: 3rem; background: var(--card-bg); border-radius: var(--border-radius); padding: 2rem; box-shadow: var(--shadow-sm); display: none;">
-            <h2 class="section-title">시뮬레이션 차트 분석</h2>
-            <div id="recharts-root"></div>
         </section>
 
         <footer
@@ -305,7 +287,6 @@
         </div>
     </div>
     <script src="script.js"></script>
-    <script src="chartLogic.jsx" type="text/babel"></script>
 </body>
 
 </html>
