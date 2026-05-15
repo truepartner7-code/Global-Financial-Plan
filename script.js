@@ -134,7 +134,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    fetch('https://open.er-api.com/v6/latest/USD')
+    const setupNumberInput = (input) => {
+        input.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/[^0-9.]/g, ''); // Block negative signs, letters, specials
+            const parts = val.split('.');
+            if (parts.length > 2) parts.pop(); // Prevent multiple decimals
+            if (parts[0]) parts[0] = parseInt(parts[0], 10).toLocaleString('en-US'); // Comma formatting
+            e.target.value = parts.join('.');
+            if (typeof renderGrid === 'function') renderGrid();
+        });
+    };
+    if (premiumInput) setupNumberInput(premiumInput);
+    if (budgetKrwInput) setupNumberInput(budgetKrwInput);
+
+    const fetchWithTimeout = (url, options, timeout = 3000) => {
+        return Promise.race([
+            fetch(url, options),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), timeout))
+        ]);
+    };
+
+    // Environment variables (e.g. process.env.API_KEY) are typically used in build tools like Vite/Next.js. 
+    // Since this uses an open API without a key, we do not require a .env file here.
+    fetchWithTimeout('https://open.er-api.com/v6/latest/USD', {}, 3000)
         .then(response => response.json())
         .then(data => {
             const baseRate = data.rates.KRW;
@@ -143,8 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
             updateExRateDisplay();
         })
         .catch(err => {
-            console.error('환율 불러오기 실패', err);
+            console.warn('환율 API 로딩 실패 또는 지연(3초 초과):', err);
             isExRateFetched = false;
+            
+            // Switch to manual mode automatically
+            const manualRadio = document.querySelector('input[name="rateMode"][value="manual"]');
+            if (manualRadio) {
+                manualRadio.checked = true;
+                manualRadio.dispatchEvent(new Event('change'));
+                alert('환율 서버 응답이 지연되어 [직접 입력] 모드로 전환되었습니다. 환율을 직접 입력해 주세요.');
+            }
             updateExRateDisplay();
         });
 
