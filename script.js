@@ -1047,17 +1047,5 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('change', renderGrid);
     });
 
-    [premiumInput, budgetKrwInput].forEach(inputEl => {
-        inputEl.addEventListener('input', (e) => {
-            let raw = e.target.value.replace(/[^0-9]/g, '');
-            if(raw) {
-                e.target.value = new Intl.NumberFormat('en-US').format(parseInt(raw, 10));
-            } else {
-                e.target.value = '';
-            }
-            renderGrid();
-        });
-    });
-
     renderGrid();
 });
