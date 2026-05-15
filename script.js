@@ -1047,5 +1047,73 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('change', renderGrid);
     });
 
+    // --- Advanced PDF Export Logic ---
+    const btnDownloadPdfAdv = document.getElementById('btn-download-pdf-adv');
+    if (btnDownloadPdfAdv) {
+        btnDownloadPdfAdv.addEventListener('click', async () => {
+            const container = document.querySelector('.app-container');
+            const body = document.body;
+            
+            // UI Hide & Mode Add
+            const adminBtn = document.getElementById('btn-admin');
+            const versionToggle = document.querySelector('.version-toggle');
+            
+            if (adminBtn) adminBtn.style.display = 'none';
+            if (versionToggle) versionToggle.style.display = 'none';
+            btnDownloadPdfAdv.style.display = 'none';
+            
+            body.classList.add('pdf-export-mode');
+
+            // Allow DOM to apply styles
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            try {
+                // Generate Canvas
+                const canvas = await window.html2canvas(container, {
+                    scale: 2, // High resolution
+                    useCORS: true,
+                    logging: false,
+                    scrollY: -window.scrollY // fix scrolling bugs
+                });
+
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                
+                // jsPDF A4 configuration
+                const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10; // 10mm margin
+                
+                // Calculate dimensions for Fit-to-page
+                const imgProps = pdf.getImageProperties(imgData);
+                const ratio = imgProps.width / imgProps.height;
+                
+                let drawWidth = pdfWidth - (margin * 2);
+                let drawHeight = drawWidth / ratio;
+                
+                if (drawHeight > pdfHeight - (margin * 2)) {
+                    drawHeight = pdfHeight - (margin * 2);
+                    drawWidth = drawHeight * ratio;
+                }
+                
+                // Center horizontally if scaling bounded by height
+                const xOffset = margin + ((pdfWidth - (margin * 2) - drawWidth) / 2);
+                
+                pdf.addImage(imgData, 'JPEG', xOffset, margin, drawWidth, drawHeight);
+                pdf.save('글로벌유배당저축_상담리포트.pdf');
+
+            } catch (error) {
+                console.error("PDF 생성 오류:", error);
+                alert("PDF 생성 중 문제가 발생했습니다.");
+            } finally {
+                // Restore UI
+                if (adminBtn) adminBtn.style.display = '';
+                if (versionToggle) versionToggle.style.display = '';
+                btnDownloadPdfAdv.style.display = 'flex';
+                body.classList.remove('pdf-export-mode');
+            }
+        });
+    }
+
     renderGrid();
 });

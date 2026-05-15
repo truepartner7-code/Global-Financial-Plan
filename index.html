@@ -9,6 +9,10 @@
     <meta property="og:description" content="글로벌 유배당저축보험 (Generali, Sun Life, CHUBB) 프로모션 예시표 및 통합비교/심층분석 시뮬레이터" />
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- HTML to PDF Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -47,11 +51,11 @@
                         <div class="mode-toggle" style="margin: 0;">
                             <input type="radio" id="rate-auto" name="rateMode" value="auto" checked>
                             <label for="rate-auto" id="label-rate-auto" class="active"
-                                style="padding: 0.4rem 1rem; font-size: 0.9rem;">자동</label>
+                                style="padding: 0.4rem 0; width: 80px; text-align: center; font-size: 0.9rem;">자동</label>
 
                             <input type="radio" id="rate-manual" name="rateMode" value="manual">
                             <label for="rate-manual" id="label-rate-manual"
-                                style="padding: 0.4rem 1rem; font-size: 0.9rem;">직접 입력</label>
+                                style="padding: 0.4rem 0; width: 80px; text-align: center; font-size: 0.9rem;">직접 입력</label>
                         </div>
                         <div id="manual-rate-group" style="display: none; align-items: center; gap: 0.5rem;">
                             <div class="input-with-prefix" style="width: 130px;">
@@ -137,6 +141,12 @@
         <section id="comparison-grid" class="comparison-grid">
             <!-- 자바스크립트로 렌더링 -->
         </section>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <button id="btn-download-pdf-adv" style="padding: 0.8rem 2rem; background: #e11d48; color: white; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(225, 29, 72, 0.3); font-size: 1.1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s;">
+                📄 PDF 리포트 저장
+            </button>
+        </div>
 
         <footer
             style="text-align: center; margin-top: 4rem; margin-bottom: 3rem; padding-bottom: 2rem; color: #94a3b8; font-size: 0.9rem; letter-spacing: 0.5px;">
