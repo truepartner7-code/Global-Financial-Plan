@@ -203,7 +203,7 @@ label {
 .company-card {
     background: var(--card-bg);
     border-radius: var(--border-radius);
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     box-shadow: var(--shadow-sm);
     border-top: 6px solid #ccc;
     display: flex;
@@ -654,6 +654,86 @@ label {
     font-weight: 600;
     color: #64748b;
 }
+/* --- V4 심층분석 레이아웃 --- */
+
+/* Row 1: 가입조건(left) + 거치형(right) */
+.v4-top-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    align-items: stretch;
+}
+
+/* 가입조건 패널 */
+.v4-condition-panel {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.4rem;
+    box-sizing: border-box;
+}
+
+/* 가입조건 내부 콘텐츠 폭 제한 + 중앙 정렬 */
+.v4-condition-panel .data-list,
+.v4-condition-panel > div {
+    max-width: 580px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 가입조건 data-row 폰트 크기 키우기 */
+.v4-condition-panel .data-row {
+    font-size: 1.05rem;
+    padding: 0.65rem 0;
+}
+
+.v4-condition-panel .data-row span:first-child {
+    font-size: 1.05rem;
+}
+
+/* 거치형 패널 래퍼 */
+.v4-none-panel {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Row 2: 인출플랜 3열 */
+.v4-withdrawal-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.v4-withdrawal-row > div {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.2rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+
+/* 반응형: 태블릿 이하 */
+@media (max-width: 1024px) {
+    .v4-top-row {
+        grid-template-columns: 1fr;
+    }
+    .v4-withdrawal-row {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Native Print (PDF Export) Layout --- */
 @media print {
     @page {
@@ -719,6 +799,15 @@ label {
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 1rem !important;
         width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    /* V4 새 레이아웃 인쇄 */
+    .v4-top-row {
+        grid-template-columns: 2fr 1fr !important;
+    }
+    .v4-withdrawal-row {
+        grid-template-columns: repeat(3, 1fr) !important;
         page-break-inside: avoid;
     }
 

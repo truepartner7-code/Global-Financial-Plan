@@ -95,9 +95,10 @@
                 <div class="form-group" id="v3-control" style="display: flex;">
                     <label>인출 시나리오</label>
                     <select id="withdrawalPlan" class="form-control" style="cursor: pointer;">
-                        <option value="none">거치 (인출 안함)</option>
-                        <option value="10yr">10년말 후 (가입금액의 10% 매년 인출)</option>
-                        <option value="20yr">20년말 후 (가입금액의 20% 매년 인출)</option>
+                        <option value="none" selected>거치 (인출 안함)</option>
+                        <option value="5yr">5년말 후</option>
+                        <option value="10yr">10년말 후</option>
+                        <option value="20yr">20년말 후</option>
                     </select>
                 </div>
 
@@ -271,9 +272,10 @@
                     </div>
                 </div>
                 <div>
-                    <label style="font-size: 0.9rem; font-weight: 600;">선납 이자율 (%)</label>
-                    <div style="margin-top: 0.25rem; width: 50%;">
-                        <input type="number" step="0.1" id="chubb-prepay" class="form-control">
+                    <label style="font-size: 0.9rem; font-weight: 600;">선납 프로모션 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>선납 이자율</small><input type="number" step="0.1" id="chubb-prepay" class="form-control"></div>
+                        <div><small>2년납 선납시 추가할인</small><input type="number" step="0.1" id="chubb-2y-add" class="form-control"></div>
                     </div>
                 </div>
             </div>
