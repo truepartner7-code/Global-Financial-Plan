@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sv10_w10 = 131065; sv20_w10 = 146499; sv30_w10 = 159046; sv40_w10 = 165574; sv50_w10 = 177097;
                     sv10_w20 = sv10; sv20_w20 = 296420; sv30_w20 = 324991; sv40_w20 = 344209; sv50_w20 = 378834;
                 } else {
-                    sv5_w5 = 0; sv10_w5 = 84707; sv20_w5 = 89771; sv30_w5 = 96016; sv40_w5 = 93475; sv50_w5 = 88365;
+                    sv5_w5 = 59401; sv10_w5 = 84707; sv20_w5 = 89771; sv30_w5 = 96016; sv40_w5 = 93475; sv50_w5 = 88365;
                     sv10_w10 = 117988; sv20_w10 = 127311; sv30_w10 = 140687; sv40_w10 = 145410; sv50_w10 = 153844;
                     sv10_w20 = sv10; sv20_w20 = 279599; sv30_w20 = 293237; sv40_w20 = 310536; sv50_w20 = 342160;
                 }
@@ -699,12 +699,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         if (year >= 5) {
                             if (term === 5) {
-                                if (year === 5) {
-                                    currentSv = sv;
-                                    accumulatedWithdrawal = 0;
-                                } else {
+                                if (year === 6) {
+                                    currentSv = (sv_w5 && sv_w5 !== 0) ? sv_w5 : sv;
+                                    accumulatedWithdrawal = pureNominalTotal * (wAmt / 100000);
+                                } else if (year > 6) {
                                     currentSv = sv_w5;
                                     accumulatedWithdrawal = pureNominalTotal * (wAmt / 100000) * (year - 5);
+                                } else {
+                                    currentSv = sv;
+                                    accumulatedWithdrawal = 0;
                                 }
                             } else {
                                 currentSv = sv_w5;
@@ -905,7 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     `}
                                 </thead>
                                 <tbody>
-                                    ${(withdrawalPlan === '10yr' || withdrawalPlan === '20yr') ? '' : getYieldHtml(term === 5 ? 6 : 5, res.surrender5yr, res.sv5_w5, null, null)}
+                                    ${getYieldHtml(term === 5 ? 6 : 5, res.surrender5yr, res.sv5_w5, null, null)}
                                     ${getYieldHtml(10, res.surrender10yr, res.sv10_w5, res.sv10_w10, res.sv10_w20)}
                                     ${getYieldHtml(20, res.surrender20yr, res.sv20_w5, res.sv20_w10, res.sv20_w20)}
                                     ${getYieldHtml(30, res.surrender30yr, res.sv30_w5, res.sv30_w10, res.sv30_w20)}
@@ -944,8 +947,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (year >= wStartYear) {
                         if (term === 5) {
                             if (year === 6) {
-                                currentSv = sv;
-                                accumulatedWithdrawal = 0;
+                                currentSv = (sv_w5 && sv_w5 !== 0) ? sv_w5 : sv;
+                                accumulatedWithdrawal = pureNominalTotal * (wAmt / 100000);
                             } else {
                                 currentSv = sv_w5;
                                 accumulatedWithdrawal = pureNominalTotal * (wAmt / 100000) * (year - 6);
