@@ -876,17 +876,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         </ul>
                             
                             ${withdrawalPlan !== 'none' ? `
-                            <li class="data-row withdrawal-box" style="background: #f0fdf4; padding: 1rem; margin: 0.5rem -1rem -0.5rem -1rem; border-radius: 8px; border-bottom: none;">
+                            <div class="withdrawal-box" style="background: #f0fdf4; padding: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                 <span style="color: #166534; font-weight: 700;">${withdrawalPlanTitle}</span>
                                 <div style="display: flex; flex-direction: column; align-items: flex-end;">
                                     <span style="color: #15803d; font-size: 1.2rem; font-weight: 800;">${annualWithdrawal > 0 ? formatUSD(annualWithdrawal) : '-'}</span>
                                     <span style="color: #16a34a; font-size: 0.9rem; font-weight: 600;">(${annualWithdrawal > 0 ? formatKRW(annualWithdrawal) : '-'})</span>
                                 </div>
-                            </li>
+                            </div>
                             ` : ''}
-                        </ul>
 
-                        <div style="margin-top: 1.5rem; overflow-x: auto;">
+                        <div style="margin-top: 1.5rem; overflow-x: auto; flex-grow: 1;">
                             <table class="yield-table ${withdrawalPlanSelect.value === 'none' ? 'yield-table-none' : ''}" style="min-width: ${withdrawalPlanSelect.value === 'none' ? '300px' : 'auto'};">
                                 <thead>
                                     ${withdrawalPlanSelect.value === 'none' ? `
@@ -1125,74 +1124,67 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="v4-top-row">
                         <!-- 가입조건 패널 -->
                         <div class="v4-condition-panel">
-                            <ul class="data-list" style="margin: 0;">
-                                <li class="data-row">
-                                    <span>연간 보험료 (명목, ${term}년납)</span>
-                                    <span style="font-weight:600;">${formatUSD(p)}</span>
-                                </li>
-                                <li class="data-row">
-                                    <span>연간 보험료 (실납 평균)</span>
-                                    <span style="font-weight:600; color: #3b82f6;">${formatUSD(totalActual / term)}</span>
-                                </li>
-                                <li class="data-row">
-                                    <span>IA Levy (연간)</span>
-                                    <span style="font-weight:600; color: #64748b;">+${formatUSD(res.levy)}</span>
-                                </li>
-                            </ul>
-                            <div style="background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1; padding: 1rem;">
-                                ${mode === 'forward' ? `
-                                <!-- 정산: 총실납입액 → 총프로모션 → 총명목가입금액 -->
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0;">
-                                    <span style="font-size: 1.15rem; font-weight: 800; color: #1e293b;">총 실납입액</span>
-                                    <span style="font-weight: 800; font-size: 1.15rem; color: #0f172a; font-variant-numeric: tabular-nums;">
-                                        ${formatUSD(totalActual)} <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">(${formatKRW(totalActual)})</span>
-                                    </span>
-                                </div>
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0; border-top: 1px dashed #cbd5e1;">
-                                    <div>
-                                        <div style="font-weight: 700; color: #065f46; font-size: 1rem;">총 프로모션 혜택</div>
-                                        <div style="font-size: 0.82rem; color: var(--text-muted);">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
+                            <div class="condition-main-block">
+
+                                <!-- 소블럭 1: 연간 납입 조건 (미니멀 화이트) -->
+                                <div class="condition-sub1">
+
+                                    <div class="cond-row">
+                                        <span class="cond-label">연간 보험료 <span class="cond-sub-text">(명목, ${term}년납)</span></span>
+                                        <span class="cond-val">${formatUSD(p)}</span>
                                     </div>
-                                    <div style="text-align: right;">
-                                        <div style="font-weight:800; color: #10b981; font-size: 1.05rem; font-variant-numeric: tabular-nums;">
-                                            -${formatUSD(totalDiscount)} <span style="font-size: 0.85rem; font-weight: 600;">(-${formatKRW(totalDiscount)})</span>
+                                    <div class="cond-row">
+                                        <span class="cond-label">연간 보험료 <span class="cond-sub-text">(실납 평균)</span></span>
+                                        <span class="cond-val cond-val-blue">${formatUSD(totalActual / term)}</span>
+                                    </div>
+                                    <div class="cond-row">
+                                        <span class="cond-label">IA Levy <span class="cond-sub-text">(연간)</span></span>
+                                        <span class="cond-val cond-val-muted">+${formatUSD(res.levy)}</span>
+                                    </div>
+                                </div>
+
+                                <div class="condition-sub2">
+                                    ${mode === 'forward' ? `
+                                    <div class="cond-row">
+                                        <span class="cond-label-bold">총 실납입액</span>
+                                        <span class="cond-val-lg">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
+                                    </div>
+                                    <div class="cond-row">
+                                        <div>
+                                            <div class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택</div>
+                                            <div class="cond-sub-text">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
                                         </div>
-                                        <span style="font-size: 0.82rem; color: #059669; font-weight: 700; background: #dcfce7; padding: 0.1rem 0.5rem; border-radius: 4px;">할인율: ${(totalDiscount / pureNominalTotal * 100).toFixed(1)}%</span>
-                                    </div>
-                                </div>
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0; border-top: 1px dashed #cbd5e1;">
-                                    <span style="font-size: 1rem; font-weight: 700; color: #475569;">총 명목 가입금액</span>
-                                    <span style="font-weight: 700; font-size: 1rem; color: #64748b; font-variant-numeric: tabular-nums;">
-                                        ${formatUSD(pureNominalTotal)} <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">(${formatKRW(pureNominalTotal)})</span>
-                                    </span>
-                                </div>
-                                ` : `
-                                <!-- 역산: 총명목가입금액 → 총프로모션 → 총실납입액 -->
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0;">
-                                    <span style="font-size: 1.15rem; font-weight: 800; color: #1e293b;">총 명목 가입금액</span>
-                                    <span style="font-weight: 800; font-size: 1.15rem; color: #0f172a; font-variant-numeric: tabular-nums;">
-                                        ${formatUSD(pureNominalTotal)} <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">(${formatKRW(pureNominalTotal)})</span>
-                                    </span>
-                                </div>
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0; border-top: 1px dashed #cbd5e1;">
-                                    <div>
-                                        <div style="font-weight: 700; color: #065f46; font-size: 1rem;">총 프로모션 혜택</div>
-                                        <div style="font-size: 0.82rem; color: var(--text-muted);">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
-                                    </div>
-                                    <div style="text-align: right;">
-                                        <div style="font-weight:800; color: #10b981; font-size: 1.05rem; font-variant-numeric: tabular-nums;">
-                                            -${formatUSD(totalDiscount)} <span style="font-size: 0.85rem; font-weight: 600;">(-${formatKRW(totalDiscount)})</span>
+                                        <div style="text-align:right;">
+                                            <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
+                                            <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
                                         </div>
-                                        <span style="font-size: 0.82rem; color: #059669; font-weight: 700; background: #dcfce7; padding: 0.1rem 0.5rem; border-radius: 4px;">할인율: ${(totalDiscount / pureNominalTotal * 100).toFixed(1)}%</span>
                                     </div>
+                                    <div class="cond-row">
+                                        <span class="cond-label">총 명목 가입금액</span>
+                                        <span class="cond-val">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
+                                    </div>
+                                    ` : `
+                                    <div class="cond-row">
+                                        <span class="cond-label-bold">총 명목 가입금액</span>
+                                        <span class="cond-val-lg">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
+                                    </div>
+                                    <div class="cond-row">
+                                        <div>
+                                            <div class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택</div>
+                                            <div class="cond-sub-text">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
+                                        </div>
+                                        <div style="text-align:right;">
+                                            <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
+                                            <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
+                                        </div>
+                                    </div>
+                                    <div class="cond-row">
+                                        <span class="cond-label">총 실납입액</span>
+                                        <span class="cond-val cond-val-blue">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
+                                    </div>
+                                    `}
                                 </div>
-                                <div class="data-row" style="border-bottom: none; padding: 0.6rem 0; border-top: 1px dashed #cbd5e1;">
-                                    <span style="font-size: 1rem; font-weight: 700; color: #475569;">총 실납입액</span>
-                                    <span style="font-weight: 700; font-size: 1rem; color: #3b82f6; font-variant-numeric: tabular-nums;">
-                                        ${formatUSD(totalActual)} <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">(${formatKRW(totalActual)})</span>
-                                    </span>
-                                </div>
-                                `}
+
                             </div>
                         </div>
 
