@@ -503,24 +503,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 let prepayDiscountAmt = 0;
 
                 if (isPrepay) {
-                    totalActual = yearlyPayments[0];
+                    let prepayTotalWithoutBonus = p + levy;
                     for (let i = 1; i < term; i++) {
-                        let pv = yearlyPayments[i];
+                        let pv = p + levy;
                         if (term === 2) {
-                            if (prepayY1 > 0) pv = yearlyPayments[i] / (1 + prepayY1);
+                            if (prepayY1 > 0) pv = (p / (1 + prepayY1)) + levy;
                         } else {
-                            if (prepayY1 > 0 && prepayY2 > 0) {
-                                if (i === 1) pv = yearlyPayments[i] / (1 + prepayY1);
-                                else if (i === 2) pv = yearlyPayments[i] / ((1 + prepayY1) * (1 + prepayY2));
-                                else if (i === 3) pv = yearlyPayments[i] / ((1 + prepayY1) * Math.pow(1 + prepayY2, 2));
-                                else if (i === 4) pv = yearlyPayments[i] / ((1 + prepayY1) * Math.pow(1 + prepayY2, 3));
-                            } else if (prepayY1 > 0) {
-                                pv = yearlyPayments[i] / Math.pow(1 + prepayY1, i);
+                            if (i === 1) {
+                                if (prepayY1 > 0) pv = (p / (1 + prepayY1)) + levy;
+                            } else {
+                                let rate = prepayY2 > 0 ? prepayY2 : prepayY1;
+                                if (rate > 0) pv = (p / Math.pow(1 + rate, i)) + levy;
                             }
                         }
-                        totalActual += pv;
-                        prepayDiscountAmt += (yearlyPayments[i] - pv);
+                        prepayTotalWithoutBonus += pv;
                     }
+                    totalActual = prepayTotalWithoutBonus - bonusAmount;
+                    let nominalTotalWithoutBonus = (p + levy) * term;
+                    prepayDiscountAmt = nominalTotalWithoutBonus - prepayTotalWithoutBonus;
                 } else {
                     totalActual = yearlyPayments.reduce((sum, val) => sum + val, 0);
                 }
@@ -1081,7 +1081,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         
-                        <div class="v4-table-wrapper" style="flex-grow: 1; display: flex; flex-direction: column; padding: 0 1.5rem;">
+                        <div class="v4-table-wrapper" style="flex-grow: 1; display: flex; flex-direction: column; padding: 0 0.2rem;">
                             <table class="yield-table ${withdrawalPlan === 'none' ? 'yield-table-none' : ''}" style="min-width: ${withdrawalPlan === 'none' ? '300px' : 'auto'};">
                                 <thead>
                                     ${withdrawalPlan === 'none' ? `

@@ -776,9 +776,9 @@ label {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0;
+    padding: 0.4rem 0;
     border-bottom: 1px solid #f1f5f9;
-    font-size: 0.95rem;
+    font-size: 1.15rem;
 }
 
 .cond-row:last-child { border-bottom: none; }
@@ -791,12 +791,12 @@ label {
 .cond-label-bold {
     color: #1e293b;
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 
 .cond-sub-text {
     color: #94a3b8;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     font-weight: 400;
     margin-left: 0.15rem;
 }
@@ -811,7 +811,7 @@ label {
 .cond-val-lg {
     font-weight: 800;
     color: #0f172a;
-    font-size: 1.1rem;
+    font-size: 1.35rem;
     font-variant-numeric: tabular-nums;
 }
 
@@ -820,7 +820,7 @@ label {
 .cond-val-muted { color: #94a3b8 !important; }
 
 .cond-krw {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #94a3b8;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
@@ -829,11 +829,11 @@ label {
 
 .cond-badge {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.95rem;
     color: #059669;
     font-weight: 700;
     background: #dcfce7;
-    padding: 0.1rem 0.4rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 4px;
     margin-top: 0.2rem;
 }
