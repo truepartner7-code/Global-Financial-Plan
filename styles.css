@@ -646,6 +646,39 @@ label {
         padding: 0.75rem 0 !important;
         text-align: center;
     }
+
+    /* V4 Mobile Condition Panel Optimization */
+    .cond-row {
+        font-size: 0.95rem !important;
+        padding: 0.5rem 0 !important;
+    }
+    .cond-label-bold { font-size: 1.1rem !important; }
+    .cond-val-lg { font-size: 1.15rem !important; }
+    .cond-krw { font-size: 0.85rem !important; }
+    
+    .condition-sub2 .cond-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+    }
+    
+    .condition-sub2 .cond-row > span:last-child,
+    .condition-sub2 .cond-row > div:last-child {
+        width: 100%;
+        text-align: left !important;
+    }
+    
+    .condition-sub2 .cond-row > div:last-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .condition-sub2 .cond-row .cond-badge {
+        margin-top: 0 !important;
+    }
 }
 
 .summary-subtext {
