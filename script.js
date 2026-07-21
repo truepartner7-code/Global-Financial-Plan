@@ -760,18 +760,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const irrVal = isAvailable ? getIRR(term, totalActual, year, currentSv, wAmtForIrr, wStartYear) : '-';
 
+                    let accWDisplay = accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-';
                     let svDisplay = isAvailable ? formatUSD(currentSv) : '-';
                     let totalValueDisplay = isAvailable ? formatUSD(totalValue) : '-';
+
+                    let maxLen = Math.max(svDisplay.length, totalValueDisplay.length, accWDisplay.length);
+                    let fsClass = 'yield-text-xl';
+                    if (withdrawalPlan !== 'none') {
+                        if (maxLen >= 11) fsClass = 'yield-text-xs';
+                        else if (maxLen === 10) fsClass = 'yield-text-sm';
+                        else if (maxLen === 9) fsClass = 'yield-text-md';
+                        else if (maxLen === 8) fsClass = 'yield-text-lg';
+                    } else {
+                        if (maxLen >= 10) fsClass = 'yield-text-md';
+                        else if (maxLen === 9) fsClass = 'yield-text-lg';
+                    }
 
                     if (withdrawalPlan === 'none') {
                         return `
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${svDisplay}</span>
+                                    <span class="dyn-val ${fsClass}">${svDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                                    <div class="yield-irr-wrapper ${fsClass}">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                         <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -784,16 +797,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
+                                    <span class="dyn-val ${fsClass}">${accWDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${svDisplay}</span>
+                                    <span class="dyn-val ${fsClass}">${svDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${totalValueDisplay}</span>
+                                    <span class="dyn-val ${fsClass}">${totalValueDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                                    <div class="yield-irr-wrapper ${fsClass}">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                         <span style="color: #e2e8f0; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -1004,18 +1017,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const irrVal = isAvailable ? getIRR(term, totalActual, year, currentSv, wAmtForIrr, wStartYear) : '-';
 
+                let accWDisplay = accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-';
                 let svDisplay = isAvailable ? formatUSD(currentSv) : '-';
                 let totalValueDisplay = isAvailable ? formatUSD(totalValue) : '-';
+
+                let maxLen = Math.max(svDisplay.length, totalValueDisplay.length, accWDisplay.length);
+                let fsClass = 'yield-text-xl';
+                if (withdrawalPlan !== 'none') {
+                    if (maxLen >= 11) fsClass = 'yield-text-xs';
+                    else if (maxLen === 10) fsClass = 'yield-text-sm';
+                    else if (maxLen === 9) fsClass = 'yield-text-md';
+                    else if (maxLen === 8) fsClass = 'yield-text-lg';
+                } else {
+                    if (maxLen >= 10) fsClass = 'yield-text-md';
+                    else if (maxLen === 9) fsClass = 'yield-text-lg';
+                }
 
                 if (withdrawalPlan === 'none') {
                     return `
                         <tr>
                             <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                             <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                <span style="display: inline-block; transform: scaleX(0.9); transform-origin: right;">${svDisplay}</span>
+                                <span class="dyn-val ${fsClass}">${svDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; transform: scaleX(0.9); transform-origin: right;">
+                                <div class="yield-irr-wrapper ${fsClass}">
                                     <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                     <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                     <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -1028,16 +1054,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <tr>
                             <td style="text-align: left; padding: 0.4rem 0.2rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem; white-space: nowrap;">${year}년</td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                                <span style="display: inline-block; transform: scaleX(0.88); transform-origin: right;">${accumulatedWithdrawal > 0 ? formatUSD(accumulatedWithdrawal) : '-'}</span>
+                                <span class="dyn-val ${fsClass}">${accWDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                                <span style="display: inline-block; transform: scaleX(0.88); transform-origin: right;">${svDisplay}</span>
+                                <span class="dyn-val ${fsClass}">${svDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                <span style="display: inline-block; transform: scaleX(0.88); transform-origin: right;">${totalValueDisplay}</span>
+                                <span class="dyn-val ${fsClass}">${totalValueDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0;">
-                                <div style="display: flex; justify-content: flex-end; align-items: baseline; gap: 1px; transform: scaleX(0.85); transform-origin: right;">
+                                <div class="yield-irr-wrapper ${fsClass}">
                                     <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                     <span style="color: #e2e8f0; font-weight: 400; font-size: 0.75rem;">/</span>
                                     <span style="color: #94a3b8; font-weight: 500; font-size: 0.75rem;">${irrVal}</span>
