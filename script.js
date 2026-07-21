@@ -820,6 +820,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     annualWithdrawal = pureNominalTotal * withdrawPct;
                 }
 
+                let maxLen = 0;
+                let tableFsClass = 'fs-lg';
+                if (withdrawalPlan !== 'none') {
+                    let sv50 = 0;
+                    if (withdrawalPlan === '5yr') sv50 = res.sv50_w5;
+                    else if (withdrawalPlan === '10yr') sv50 = res.sv50_w10;
+                    else if (withdrawalPlan === '20yr') sv50 = res.sv50_w20;
+                    
+                    let wStartYear = 99;
+                    if (withdrawalPlan === '5yr') wStartYear = (term === 2) ? 4 : 6;
+                    else if (withdrawalPlan === '10yr') wStartYear = 9;
+                    else if (withdrawalPlan === '20yr') wStartYear = 19;
+                    
+                    let accW50 = 0;
+                    if (50 > wStartYear) accW50 = annualWithdrawal * (50 - wStartYear);
+                    let total50 = (sv50 !== '-' && sv50 !== 0) ? sv50 + accW50 : '-';
+                    
+                    let svStr = sv50 !== '-' ? formatUSD(sv50) : '-';
+                    let accWStr = accW50 > 0 ? formatUSD(accW50) : '-';
+                    let totalStr = total50 !== '-' ? formatUSD(total50) : '-';
+                    maxLen = Math.max(svStr.length, accWStr.length, totalStr.length);
+                    
+                    if (maxLen >= 11) tableFsClass = 'fs-xs';
+                    else if (maxLen === 10) tableFsClass = 'fs-sm';
+                    else if (maxLen === 9) tableFsClass = 'fs-md';
+                    else tableFsClass = 'fs-lg';
+                }
+
                 let wPctActualDisplay = totalActual > 0 && annualWithdrawal > 0 ? (annualWithdrawal / totalActual * 100).toFixed(1) + '%' : '-';
 
                 let withdrawalPlanTitle = '';
@@ -890,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             ` : ''}
 
                         <div style="margin-top: 1.5rem; overflow-x: auto; flex-grow: 1;">
-                            <table class="yield-table ${withdrawalPlanSelect.value === 'none' ? 'yield-table-none' : ''}" style="min-width: ${withdrawalPlanSelect.value === 'none' ? '300px' : 'auto'};">
+                            <table class="yield-table ${withdrawalPlanSelect.value === 'none' ? 'yield-table-none' : ''} ${tableFsClass}" style="min-width: ${withdrawalPlanSelect.value === 'none' ? '300px' : 'auto'};">
                                 <thead>
                                     ${withdrawalPlanSelect.value === 'none' ? `
                                     <tr>
@@ -1064,6 +1092,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     annualWithdrawal = pureNominalTotal * withdrawPct;
                 }
 
+                let maxLen = 0;
+                let tableFsClass = 'fs-lg';
+                if (withdrawalPlan !== 'none') {
+                    let sv50 = 0;
+                    if (withdrawalPlan === '5yr') sv50 = res.sv50_w5;
+                    else if (withdrawalPlan === '10yr') sv50 = res.sv50_w10;
+                    else if (withdrawalPlan === '20yr') sv50 = res.sv50_w20;
+                    
+                    let wStartYear = 99;
+                    if (withdrawalPlan === '5yr') wStartYear = (term === 2) ? 4 : 6;
+                    else if (withdrawalPlan === '10yr') wStartYear = 9;
+                    else if (withdrawalPlan === '20yr') wStartYear = 19;
+                    
+                    let accW50 = 0;
+                    if (50 > wStartYear) accW50 = annualWithdrawal * (50 - wStartYear);
+                    let total50 = (sv50 !== '-' && sv50 !== 0) ? sv50 + accW50 : '-';
+                    
+                    let svStr = sv50 !== '-' ? formatUSD(sv50) : '-';
+                    let accWStr = accW50 > 0 ? formatUSD(accW50) : '-';
+                    let totalStr = total50 !== '-' ? formatUSD(total50) : '-';
+                    maxLen = Math.max(svStr.length, accWStr.length, totalStr.length);
+                    
+                    if (maxLen >= 11) tableFsClass = 'fs-xs';
+                    else if (maxLen === 10) tableFsClass = 'fs-sm';
+                    else if (maxLen === 9) tableFsClass = 'fs-md';
+                    else tableFsClass = 'fs-lg';
+                }
+
                 let wPctActualDisplay = totalActual > 0 && annualWithdrawal > 0 ? (annualWithdrawal / totalActual * 100).toFixed(1) + '%' : '-';
                 let dynamicTitle = title;
                 if (withdrawalPlan !== 'none') {
@@ -1084,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         
                         <div class="v4-table-wrapper" style="flex-grow: 1; display: flex; flex-direction: column; padding: 0 0.2rem;">
-                            <table class="yield-table ${withdrawalPlan === 'none' ? 'yield-table-none' : ''}" style="min-width: ${withdrawalPlan === 'none' ? '300px' : 'auto'};">
+                            <table class="yield-table ${withdrawalPlan === 'none' ? 'yield-table-none' : ''} ${tableFsClass}" style="min-width: ${withdrawalPlan === 'none' ? '300px' : 'auto'};">
                                 <thead>
                                     ${withdrawalPlan === 'none' ? `
                                     <tr>
