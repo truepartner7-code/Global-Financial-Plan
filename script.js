@@ -1153,18 +1153,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <span class="cond-val-lg">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
                                     </div>
                                     <div class="cond-row">
-                                        <div>
-                                            <div class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택</div>
-                                            <div class="cond-sub-text">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
-                                        </div>
+                                        <span class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''})</span></span>
                                         <div style="text-align:right;">
                                             <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
                                             <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
                                         </div>
                                     </div>
                                     <div class="cond-row">
-                                        <span class="cond-label">총 명목 가입금액</span>
-                                        <span class="cond-val">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
+                                        <span class="cond-label-bold">총 명목 가입금액</span>
+                                        <span class="cond-val-lg">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
                                     </div>
                                     ` : `
                                     <div class="cond-row">
@@ -1172,18 +1169,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <span class="cond-val-lg">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
                                     </div>
                                     <div class="cond-row">
-                                        <div>
-                                            <div class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택</div>
-                                            <div class="cond-sub-text">${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''}</div>
-                                        </div>
+                                        <span class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''})</span></span>
                                         <div style="text-align:right;">
                                             <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
                                             <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
                                         </div>
                                     </div>
                                     <div class="cond-row">
-                                        <span class="cond-label">총 실납입액</span>
-                                        <span class="cond-val cond-val-blue">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
+                                        <span class="cond-label-bold">총 실납입액</span>
+                                        <span class="cond-val-lg cond-val-blue">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
                                     </div>
                                     `}
                                 </div>
