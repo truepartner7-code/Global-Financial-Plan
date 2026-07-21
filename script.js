@@ -583,14 +583,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (term === 2) {
                     let y1Bonus = p * ((promo.chubb2y || 0) / 100);
                     let y2Bonus = isPrepay ? p * ((promo.chubb2yAdd || 0) / 100) : 0;
-                    
+
                     bonusAmount = y1Bonus + y2Bonus;
                     if (y1Bonus > 0 || y2Bonus > 0) {
                         let labels = [];
                         if (y1Bonus > 0) labels.push(`1차 ${promo.chubb2y}%`);
                         if (y2Bonus > 0) labels.push(`선납추가 ${promo.chubb2yAdd}%`);
                         bonusLabel = labels.join(', ');
-                        
+
                         yearlyPayments[0] = Math.max(0, yearlyPayments[0] - y1Bonus);
                         yearlyPayments[1] = Math.max(0, yearlyPayments[1] - y2Bonus);
                     }
@@ -764,27 +764,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     let svDisplay = isAvailable ? formatUSD(currentSv) : '-';
                     let totalValueDisplay = isAvailable ? formatUSD(totalValue) : '-';
 
-                    let maxLen = Math.max(svDisplay.length, totalValueDisplay.length, accWDisplay.length);
-                    let fsClass = 'yield-text-xl';
-                    if (withdrawalPlan !== 'none') {
-                        if (maxLen >= 11) fsClass = 'yield-text-xs';
-                        else if (maxLen === 10) fsClass = 'yield-text-sm';
-                        else if (maxLen === 9) fsClass = 'yield-text-md';
-                        else if (maxLen === 8) fsClass = 'yield-text-lg';
-                    } else {
-                        if (maxLen >= 10) fsClass = 'yield-text-md';
-                        else if (maxLen === 9) fsClass = 'yield-text-lg';
-                    }
-
                     if (withdrawalPlan === 'none') {
                         return `
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span class="dyn-val ${fsClass}">${svDisplay}</span>
+                                    <span class="dyn-val">${svDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div class="yield-irr-wrapper ${fsClass}">
+                                    <div class="yield-irr-wrapper">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                         <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -797,16 +785,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <tr>
                                 <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                                    <span class="dyn-val ${fsClass}">${accWDisplay}</span>
+                                    <span class="dyn-val">${accWDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                                    <span class="dyn-val ${fsClass}">${svDisplay}</span>
+                                    <span class="dyn-val">${svDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                    <span class="dyn-val ${fsClass}">${totalValueDisplay}</span>
+                                    <span class="dyn-val">${totalValueDisplay}</span>
                                 </td>
                                 <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                    <div class="yield-irr-wrapper ${fsClass}">
+                                    <div class="yield-irr-wrapper">
                                         <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                         <span style="color: #e2e8f0; font-weight: 400; font-size: 0.8rem;">/</span>
                                         <span style="color: #94a3b8; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -833,7 +821,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 let wPctActualDisplay = totalActual > 0 && annualWithdrawal > 0 ? (annualWithdrawal / totalActual * 100).toFixed(1) + '%' : '-';
-                
+
                 let withdrawalPlanTitle = '';
                 if (withdrawalPlan === '5yr') withdrawalPlanTitle = (term === 2 ? '5년말 후 인출플랜' : '6년말 후 인출플랜');
                 else if (withdrawalPlan === '10yr') withdrawalPlanTitle = '10년말 후 인출플랜';
@@ -997,7 +985,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let isAvailable = (currentSv !== '-' && currentSv !== 0);
                 let totalValue = isAvailable ? currentSv + accumulatedWithdrawal : '-';
                 const yieldPctActual = isAvailable && totalActual > 0 ? (totalValue / totalActual) : 0;
-                
+
                 let wAmtForIrr = 0;
                 let wStartYear = 99;
                 if (withdrawalPlan === '5yr') {
@@ -1021,27 +1009,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 let svDisplay = isAvailable ? formatUSD(currentSv) : '-';
                 let totalValueDisplay = isAvailable ? formatUSD(totalValue) : '-';
 
-                let maxLen = Math.max(svDisplay.length, totalValueDisplay.length, accWDisplay.length);
-                let fsClass = 'yield-text-xl';
-                if (withdrawalPlan !== 'none') {
-                    if (maxLen >= 11) fsClass = 'yield-text-xs';
-                    else if (maxLen === 10) fsClass = 'yield-text-sm';
-                    else if (maxLen === 9) fsClass = 'yield-text-md';
-                    else if (maxLen === 8) fsClass = 'yield-text-lg';
-                } else {
-                    if (maxLen >= 10) fsClass = 'yield-text-md';
-                    else if (maxLen === 9) fsClass = 'yield-text-lg';
-                }
-
                 if (withdrawalPlan === 'none') {
                     return `
                         <tr>
                             <td style="text-align: left; padding: 0.4rem 0.4rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem;">${year}년</td>
                             <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                <span class="dyn-val ${fsClass}">${svDisplay}</span>
+                                <span class="dyn-val">${svDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.4rem; border-bottom: 1px dashed #e2e8f0;">
-                                <div class="yield-irr-wrapper ${fsClass}">
+                                <div class="yield-irr-wrapper">
                                     <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                     <span style="color: #cbd5e1; font-weight: 400; font-size: 0.8rem;">/</span>
                                     <span style="color: #64748b; font-weight: 500; font-size: 0.8rem;">${irrVal}</span>
@@ -1054,16 +1030,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <tr>
                             <td style="text-align: left; padding: 0.4rem 0.2rem 0.4rem 0; border-bottom: 1px dashed #e2e8f0; font-weight: 700; color: #475569; font-size: 0.85rem; white-space: nowrap;">${year}년</td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #10b981; font-size: 0.8rem; opacity: 0.9;">
-                                <span class="dyn-val ${fsClass}">${accWDisplay}</span>
+                                <span class="dyn-val">${accWDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 500; color: #94a3b8; font-size: 0.8rem;">
-                                <span class="dyn-val ${fsClass}">${svDisplay}</span>
+                                <span class="dyn-val">${svDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0; font-weight: 800; color: #0f172a; font-size: 0.85rem;">
-                                <span class="dyn-val ${fsClass}">${totalValueDisplay}</span>
+                                <span class="dyn-val">${totalValueDisplay}</span>
                             </td>
                             <td style="padding: 0.4rem 0 0.4rem 0.3rem; border-bottom: 1px dashed #e2e8f0;">
-                                <div class="yield-irr-wrapper ${fsClass}">
+                                <div class="yield-irr-wrapper">
                                     <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">${isAvailable ? formatYieldPercent(yieldPctActual) : '-'}</span>
                                     <span style="color: #e2e8f0; font-weight: 400; font-size: 0.75rem;">/</span>
                                     <span style="color: #94a3b8; font-weight: 500; font-size: 0.75rem;">${irrVal}</span>
