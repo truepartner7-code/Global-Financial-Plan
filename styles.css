@@ -708,19 +708,19 @@ label {
     .yield-table.fs-lg:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.7rem, 2.9vw, 0.85rem) !important; transform: scaleX(0.92); letter-spacing: -0.3px; }
 
     .yield-table.fs-md:not(.yield-table-none) th,
-    .yield-table.fs-md:not(.yield-table-none) td { font-size: clamp(0.65rem, 2.7vw, 0.8rem) !important; letter-spacing: -0.4px; }
+    .yield-table.fs-md:not(.yield-table-none) td { font-size: clamp(0.68rem, 2.8vw, 0.82rem) !important; letter-spacing: -0.3px; }
     .yield-table.fs-md:not(.yield-table-none) .dyn-val,
-    .yield-table.fs-md:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.65rem, 2.7vw, 0.8rem) !important; transform: scaleX(0.88); letter-spacing: -0.4px; }
+    .yield-table.fs-md:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.68rem, 2.8vw, 0.82rem) !important; transform: scaleX(0.9); letter-spacing: -0.3px; }
 
     .yield-table.fs-sm:not(.yield-table-none) th,
-    .yield-table.fs-sm:not(.yield-table-none) td { font-size: clamp(0.6rem, 2.5vw, 0.75rem) !important; letter-spacing: -0.5px; }
+    .yield-table.fs-sm:not(.yield-table-none) td { font-size: clamp(0.66rem, 2.7vw, 0.8rem) !important; letter-spacing: -0.4px; }
     .yield-table.fs-sm:not(.yield-table-none) .dyn-val,
-    .yield-table.fs-sm:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.6rem, 2.5vw, 0.75rem) !important; transform: scaleX(0.85); letter-spacing: -0.5px; }
+    .yield-table.fs-sm:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.66rem, 2.7vw, 0.8rem) !important; transform: scaleX(0.88); letter-spacing: -0.4px; }
 
     .yield-table.fs-xs:not(.yield-table-none) th,
-    .yield-table.fs-xs:not(.yield-table-none) td { font-size: clamp(0.55rem, 2.3vw, 0.7rem) !important; letter-spacing: -0.6px; }
+    .yield-table.fs-xs:not(.yield-table-none) td { font-size: clamp(0.64rem, 2.6vw, 0.78rem) !important; letter-spacing: -0.4px; }
     .yield-table.fs-xs:not(.yield-table-none) .dyn-val,
-    .yield-table.fs-xs:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.55rem, 2.3vw, 0.7rem) !important; transform: scaleX(0.82); letter-spacing: -0.6px; }
+    .yield-table.fs-xs:not(.yield-table-none) .yield-irr-wrapper { font-size: clamp(0.64rem, 2.6vw, 0.78rem) !important; transform: scaleX(0.86); letter-spacing: -0.4px; }
 
 
     /* V4 Mobile Condition Panel Optimization */
