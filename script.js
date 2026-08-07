@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Historical Default Promotion Database
     const promoDB = {
         "2026-1": {
-            gen2y: { t100: 4.0, t50: 3.0, base: 2.0 },
+            gen2y: { t50: 4.0, t5: 3.0, base: 2.0 },
             gen5y: { t20: 23.0, base: 18.0 },
             genPrepay: 4.1,
             sun2y: { t10: 5.0, base: 2.2 },
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 5.0
         },
         "2026-2": {
-            gen2y: { t100: 5.0, t50: 4.0, base: 2.0 },
+            gen2y: { t50: 5.0, t5: 4.0, base: 2.0 },
             gen5y: { t20: 25.0, base: 20.0 },
             genPrepay: 4.1,
             sun2y: { t10: 4.5, base: 2.0 },
@@ -238,13 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
             chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 4.0
         },
         "2026-3": {
-            gen2y: { t100: 5.0, t50: 4.0, base: 2.0 },
+            gen2y: { t50: 5.0, t5: 4.0, base: 2.0 },
             gen5y: { t20: 25.0, base: 20.0 },
             genPrepay: 4.1,
-            sun2y: { t10: 4.5, base: 2.0 },
+            sun2y: { t10: 5.0, base: 2.0 },
             sun5y: { t100: 30.0, t20: 28.0, t10: 26.0, t5: 23.0, t3: 18.0, base: 12.0 },
             sunPrepay: { y1: 5.0, y2: 4.3 },
-            chubb2y: 12.0, chubb2yAdd: 3.71, chubb5y: 10.0, chubbPrepay: 4.0
+            chubb2y: 10.0, chubb2yAdd: 3.71, chubb5y: 10.0, chubbPrepay: 4.0
         }
     };
 
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // If 2026-4 or later, default to 2026-3
         if (year > 2026 || (year === 2026 && quarter >= 4)) return promoDB["2026-3"];
         return {
-            gen2y: { t100: 0, t50: 0, base: 0 },
+            gen2y: { t50: 0, t5: 0, base: 0 },
             gen5y: { t20: 0, base: 0 },
             genPrepay: 0,
             sun2y: { t10: 0, base: 0 },
@@ -283,8 +283,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = parseInt(adminQuarterSelect.value);
         const data = getPromoData(y, q);
 
-        document.getElementById('gen-2y-100').value = data.gen2y?.t100 || 0;
         document.getElementById('gen-2y-50').value = data.gen2y?.t50 || 0;
+        document.getElementById('gen-2y-5').value = data.gen2y?.t5 || 0;
         document.getElementById('gen-2y-base').value = data.gen2y?.base || 0;
         document.getElementById('gen-5y-20').value = data.gen5y?.t20 || 0;
         document.getElementById('gen-5y-base').value = data.gen5y?.base || 0;
@@ -326,8 +326,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const key = `${adminYearInput.value}-${adminQuarterSelect.value}`;
             customPromos[key] = {
                 gen2y: {
-                    t100: parseFloat(document.getElementById('gen-2y-100').value) || 0,
                     t50: parseFloat(document.getElementById('gen-2y-50').value) || 0,
+                    t5: parseFloat(document.getElementById('gen-2y-5').value) || 0,
                     base: parseFloat(document.getElementById('gen-2y-base').value) || 0
                 },
                 gen5y: {
@@ -398,8 +398,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let prepayInterestLabel = promo.genPrepay > 0 ? `${promo.genPrepay}%` : '-';
 
                 if (term === 2) {
-                    if (p >= 1000000) bonusRate = (promo.gen2y?.t100 || 0) / 100;
-                    else if (p >= 500000) bonusRate = (promo.gen2y?.t50 || 0) / 100;
+                    if (p >= 500000) bonusRate = (promo.gen2y?.t50 || 0) / 100;
+                    else if (p >= 50000) bonusRate = (promo.gen2y?.t5 || 0) / 100;
                     else bonusRate = (promo.gen2y?.base || 0) / 100;
                 } else if (term === 5) {
                     if (p >= 200000) bonusRate = (promo.gen5y?.t20 || 0) / 100;
