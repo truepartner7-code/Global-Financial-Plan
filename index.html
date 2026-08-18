@@ -114,6 +114,9 @@
                         <optgroup label="CHUBB">
                             <option value="chubb">MyLegacy Plan V</option>
                         </optgroup>
+                        <optgroup label="AXA">
+                            <option value="axa">WealthAhead II (2년납)</option>
+                        </optgroup>
                     </select>
                 </div>
 
@@ -276,6 +279,22 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
                         <div><small>선납 이자율</small><input type="number" step="0.1" id="chubb-prepay" class="form-control"></div>
                         <div><small>2년납 선납시 추가할인</small><input type="number" step="0.1" id="chubb-2y-add" class="form-control"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AXA 섹션 -->
+            <div style="background: #fffbeb; padding: 1rem; border-radius: 8px; border: 1px solid #fcd34d; margin-top: 1rem;">
+                <h3 style="margin-top: 0; margin-bottom: 0.25rem; color: #92400e; font-size: 1.1rem;">
+                    AXA (WealthAhead II) — 2년납 전용
+                </h3>
+                <small style="color: #b45309; display: block; margin-bottom: 0.75rem;">⚡ 선납시 FPDA 예치이자 별도 지급 | 거치형/5년 인출 비교 반영 (Chubb 대체)
+                </small>
+                <div>
+                    <label style="font-size: 0.9rem; font-weight: 600;">2년납 선납 보너스 이자율 (%)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.25rem;">
+                        <div><small>연납 20만불 이상</small><input type="number" step="0.1" id="axa-2y-20" class="form-control"></div>
+                        <div><small>연납 20만불 미만</small><input type="number" step="0.1" id="axa-2y-base" class="form-control"></div>
                     </div>
                 </div>
             </div>

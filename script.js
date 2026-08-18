@@ -226,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun2y: { t10: 5.0, base: 2.2 },
             sun5y: { t100: 30.0, t20: 29.0, t10: 27.0, t5: 25.0, t3: 19.0, base: 13.0 },
             sunPrepay: { y1: 5.0, y2: 4.3 },
-            chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 5.0
+            chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 5.0,
+            axa2y: { t20: 0, base: 0 }
         },
         "2026-2": {
             gen2y: { t50: 5.0, t5: 4.0, base: 2.0 },
@@ -235,7 +236,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun2y: { t10: 4.5, base: 2.0 },
             sun5y: { t100: 30.0, t20: 28.0, t10: 26.0, t5: 23.0, t3: 18.0, base: 12.0 },
             sunPrepay: { y1: 5.0, y2: 4.3 },
-            chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 4.0
+            chubb2y: 12.0, chubb2yAdd: 0, chubb5y: 10.0, chubbPrepay: 4.0,
+            axa2y: { t20: 0, base: 0 }
         },
         "2026-3": {
             gen2y: { t50: 5.0, t5: 4.0, base: 2.0 },
@@ -244,7 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun2y: { t10: 5.0, base: 2.0 },
             sun5y: { t100: 30.0, t20: 28.0, t10: 26.0, t5: 23.0, t3: 18.0, base: 12.0 },
             sunPrepay: { y1: 5.0, y2: 4.3 },
-            chubb2y: 10.0, chubb2yAdd: 3.71, chubb5y: 10.0, chubbPrepay: 4.0
+            chubb2y: 10.0, chubb2yAdd: 3.71, chubb5y: 10.0, chubbPrepay: 4.0,
+            axa2y: { t20: 8.0, base: 4.0 }  // ★ 3Q 프로모: 20만불↑ 8%, 미만 4%
         }
     };
 
@@ -263,7 +266,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun2y: { t10: 0, base: 0 },
             sun5y: { t100: 0, t20: 0, t10: 0, t5: 0, t3: 0, base: 0 },
             sunPrepay: { y1: 0, y2: 0 },
-            chubb2y: 0, chubb2yAdd: 0, chubb5y: 0, chubbPrepay: 0
+            chubb2y: 0, chubb2yAdd: 0, chubb5y: 0, chubbPrepay: 0,
+            axa2y: { t20: 0, base: 0 }
         };
     };
 
@@ -305,6 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('chubb-2y-add').value = data.chubb2yAdd || 0;
         document.getElementById('chubb-5y').value = data.chubb5y || 0;
         document.getElementById('chubb-prepay').value = data.chubbPrepay || 0;
+
+        document.getElementById('axa-2y-20').value = data.axa2y?.t20 || 0;
+        document.getElementById('axa-2y-base').value = data.axa2y?.base || 0;
     };
 
     if (btnAdmin) {
@@ -354,7 +361,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 chubb2y: parseFloat(document.getElementById('chubb-2y').value) || 0,
                 chubb2yAdd: parseFloat(document.getElementById('chubb-2y-add').value) || 0,
                 chubb5y: parseFloat(document.getElementById('chubb-5y').value) || 0,
-                chubbPrepay: parseFloat(document.getElementById('chubb-prepay').value) || 0
+                chubbPrepay: parseFloat(document.getElementById('chubb-prepay').value) || 0,
+                axa2y: {
+                    t20: parseFloat(document.getElementById('axa-2y-20').value) || 0,
+                    base: parseFloat(document.getElementById('axa-2y-base').value) || 0
+                }
             };
             localStorage.setItem('customPromos', JSON.stringify(customPromos));
 
@@ -438,7 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let sv10_w20, sv20_w20, sv30_w20, sv40_w20, sv50_w20;
 
                 if (term === 2) {
-                    sv5_w5 = 97602; sv10_w5 = 103142; sv20_w5 = 113061; sv30_w5 = 116258; sv40_w5 = 120747; sv50_w5 = 129352;
+                    sv5_w5 = 97885; sv10_w5 = 102556.5; sv20_w5 = 109738; sv30_w5 = 108245.5; sv40_w5 = 108245.5; sv50_w5 = 108245.5;
                     sv10_w10 = 142666; sv20_w10 = 155315; sv30_w10 = 152746; sv40_w10 = 146194; sv50_w10 = 134659;
                     sv10_w20 = sv10; sv20_w20 = 296978; sv30_w20 = 280325; sv40_w20 = 246349; sv50_w20 = 184905;
                 } else {
@@ -538,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let sv10_w20, sv20_w20, sv30_w20, sv40_w20, sv50_w20;
 
                 if (term === 2) {
-                    sv5_w5 = 80783; sv10_w5 = 95357; sv20_w5 = 112770; sv30_w5 = 133916; sv40_w5 = 174455; sv50_w5 = 238900;
+                    sv5_w5 = 80533.5; sv10_w5 = 93437.5; sv20_w5 = 103962; sv30_w5 = 110973; sv40_w5 = 144500; sv50_w5 = 198000;
                     sv10_w10 = 135167; sv20_w10 = 168381; sv30_w10 = 217762; sv40_w10 = 273826; sv50_w10 = 379064;
                     sv10_w20 = sv10; sv20_w20 = 291610; sv30_w20 = 331991; sv40_w20 = 356739; sv50_w20 = 399760;
                 } else {
@@ -657,6 +668,84 @@ document.addEventListener('DOMContentLoaded', () => {
                     sv10_w20: sv10_w20 * multiplier, sv20_w20: sv20_w20 * multiplier, sv30_w20: sv30_w20 * multiplier, sv40_w20: sv40_w20 * multiplier, sv50_w20: sv50_w20 * multiplier,
                 };
             }
+        },
+        {
+            id: 'axa',
+            name: 'AXA',
+            product: 'WealthAhead II',
+            getCalc: (term, p, isPrepay) => {
+                // AXA는 2년납 전용
+                if (term !== 2) return null;
+
+                const levy = calculateLevy(p);
+                const promo = getPromoData(simYear, simQuarter);
+
+                // ── 선납 FPDA 보너스 이자 계산 ──────────────────────────────
+                // AXA 방식: 총 납입액은 그대로, 이자 수익이 별도 캐시백(FPDA)으로 지급
+                // 연납 $10만 이상(총납 $20만 이상): 8%, 미만: 4%
+                const axa2y_t20 = (promo.axa2y && promo.axa2y.t20 !== undefined && promo.axa2y.t20 > 0) ? promo.axa2y.t20 : 8.0;
+                const axa2y_base = (promo.axa2y && promo.axa2y.base !== undefined && promo.axa2y.base > 0) ? promo.axa2y.base : 4.0;
+
+                const bonusInterestRate = (p * 2 >= 200000 ? axa2y_t20 : axa2y_base) / 100;
+                const bonusAmount = p * bonusInterestRate;
+                const bonusLabel = `FPDA ${(bonusInterestRate * 100).toFixed(0)}% (선납이자)`;
+
+                // AXA: 총 납입액은 할인 없음 (선납/일반납 설계서 동일)
+                const totalActual = (p + levy) * 2;
+                const prepayDiscountAmt = 0; // 할인 없음
+
+                // ── 해약환금금 기준값 (per $100,000 nominal) ──────────────────
+                // 출처: 최춘희 설계서 ($35,000/yr, mult=0.7) ÷ 0.7
+                // 검증: 프로모션 리플렛 ($100,000/yr, mult=2) ÷ 2 와 일치 확인
+                const multiplier = (p * 2) / 100000;
+
+                // 거치형 (인출 없음)
+                const sv5  = 100239;
+                const sv10 = 156389;
+                const sv20 = 324104;
+                const sv30 = 641137;
+                const sv40 = 1217261; // @Age95~100 보간값
+                const sv50 = 2285400; // @Age105~110 보간값
+
+                // 5년말 인출플랜 (연 8% = $8,000 per $100,000 nominal)
+                const sv5_w5  = 92239;
+                const sv10_w5 = 105319;
+                const sv20_w5 = 127579;
+                const sv30_w5 = 131529;
+                const sv40_w5 = 138942;
+                const sv50_w5 = 152859;
+
+                // 10yr / 20yr 데이터 미확보 → 거치형 값으로 임시 대체
+                const sv10_w10 = sv10; const sv20_w10 = sv20;
+                const sv30_w10 = sv30; const sv40_w10 = sv40; const sv50_w10 = sv50;
+                const sv10_w20 = sv10; const sv20_w20 = sv20;
+                const sv30_w20 = sv30; const sv40_w20 = sv40; const sv50_w20 = sv50;
+
+                return {
+                    levy,
+                    bonusLabel,
+                    bonusAmount,
+                    prepayInterestLabel: '-',
+                    prepayDiscountAmt,
+                    totalActual,
+                    isAxaBonus: bonusAmount > 0, // UI 분기용 플래그
+                    surrender5yr:  sv5  * multiplier,
+                    surrender10yr: sv10 * multiplier,
+                    surrender20yr: sv20 * multiplier,
+                    surrender30yr: sv30 * multiplier,
+                    surrender40yr: sv40 * multiplier,
+                    surrender50yr: sv50 * multiplier,
+                    sv5_w5:  sv5_w5  * multiplier, sv10_w5: sv10_w5 * multiplier,
+                    sv20_w5: sv20_w5 * multiplier, sv30_w5: sv30_w5 * multiplier,
+                    sv40_w5: sv40_w5 * multiplier, sv50_w5: sv50_w5 * multiplier,
+                    sv10_w10: sv10_w10 * multiplier, sv20_w10: sv20_w10 * multiplier,
+                    sv30_w10: sv30_w10 * multiplier, sv40_w10: sv40_w10 * multiplier,
+                    sv50_w10: sv50_w10 * multiplier,
+                    sv10_w20: sv10_w20 * multiplier, sv20_w20: sv20_w20 * multiplier,
+                    sv30_w20: sv30_w20 * multiplier, sv40_w20: sv40_w20 * multiplier,
+                    sv50_w20: sv50_w20 * multiplier,
+                };
+            }
         }
     ];
 
@@ -679,7 +768,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (currentVersion === 'v3') {
             const withdrawalPlan = withdrawalPlanSelect.value;
-            companies.forEach(comp => {
+
+            // ── 인출 시나리오 / 납입기간별 비교 회사 필터 ─────────────────
+            // 2년납 거치·5년인출: AXA + SunLife + Generali (Chubb 제외)
+            // 2년납 10년·20년인출: Generali + SunLife + Chubb (AXA 제외)
+            // 5년납: Generali + SunLife + Chubb (AXA 제외)
+            const visibleCompanies = companies.filter(comp => {
+                if (term !== 2) {
+                    // 5년납: AXA 제외
+                    return comp.id !== 'axa';
+                }
+                // 2년납
+                if (withdrawalPlan === 'none' || withdrawalPlan === '5yr') {
+                    // 거치형 / 5년인출: AXA·SunLife·Generali (Chubb 제외)
+                    return comp.id !== 'chubb';
+                } else {
+                    // 10년·20년인출: Generali·SunLife·Chubb (AXA 제외)
+                    return comp.id !== 'axa';
+                }
+            });
+
+            visibleCompanies.forEach(comp => {
                 let p = baseP;
                 if (mode === 'reverse') {
                     p = findPremiumForTargetActual(comp, budgetKrw, term, isPrepay);
@@ -694,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (withdrawalPlan === '5yr') {
                         let wAmt = 0;
-                        if (term === 2) wAmt = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500));
+                        if (term === 2) wAmt = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : (comp.id === 'axa' ? 8000 : 6500)));
                         else if (term === 5) wAmt = (comp.id === 'chubb' ? 6500 : 0);
 
                         if (year >= 5) {
@@ -744,7 +853,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let wAmtForIrr = 0;
                     let wStartYear = 99;
                     if (withdrawalPlan === '5yr') {
-                        let wAmtBase = (term === 2) ? (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500)) : (comp.id === 'chubb' ? 6500 : 0);
+                        let wAmtBase = (term === 2) ? (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : (comp.id === 'axa' ? 8000 : 6500))) : (comp.id === 'chubb' ? 6500 : 0);
                         wAmtForIrr = pureNominalTotal * (wAmtBase / 100000);
                         // 2년납: 5년말부터(i>4), 5년납: 6년말부터(i>6) - display와 일치
                         wStartYear = (term === 2) ? 4 : 6;
@@ -805,11 +914,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 };
 
-                const totalDiscount = res.bonusAmount + res.prepayDiscountAmt;
+                // AXA: 보너스는 할인이 아닌 캐시백 → totalDiscount 계산 분리
+                const totalDiscount = res.isAxaBonus ? 0 : (res.bonusAmount + res.prepayDiscountAmt);
 
                 let annualWithdrawal = 0;
                 if (withdrawalPlan === '5yr') {
-                    if (term === 2) annualWithdrawal = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500));
+                    if (term === 2) annualWithdrawal = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : (comp.id === 'axa' ? 8000 : 6500)));
                     else if (term === 5) annualWithdrawal = (comp.id === 'chubb' ? 6500 : 0);
                     annualWithdrawal = pureNominalTotal * (annualWithdrawal / 100000);
                 } else if (withdrawalPlan === '10yr') {
@@ -854,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (withdrawalPlan === '5yr') withdrawalPlanTitle = (term === 2 ? '5년말 후 인출플랜' : '6년말 후 인출플랜');
                 else if (withdrawalPlan === '10yr') withdrawalPlanTitle = '10년말 후 인출플랜';
                 else if (withdrawalPlan === '20yr') withdrawalPlanTitle = '20년말 후 인출플랜';
-                if (withdrawalPlanTitle) withdrawalPlanTitle += ` (매년 ${wPctActualDisplay})`;
+                if (withdrawalPlanTitle) withdrawalPlanTitle += ` (실납 대비 연 ${wPctActualDisplay})`;
 
                 const cardHtml = `
                     <div class="company-card ${comp.id}">
@@ -895,6 +1005,18 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </li>
                             `}
+                            ${comp.id === 'axa' ? `
+                            <li class="data-row promo-row v3-summary-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px dashed #cbd5e1; padding-top: 1rem; margin: 0;">
+                                <div style="font-weight: 600; color: #00008F; font-size: 0.95rem;">총 프로모션 혜택 <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(선납시 FPDA 보너스 이자 지급)</span></div>
+                                <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                                    <div style="display: flex; align-items: baseline; gap: 0.3rem;">
+                                        <span style="font-weight:800; color: #00008F; font-size: 1.05rem; font-variant-numeric: tabular-nums;">+${formatUSD(res.bonusAmount)}</span>
+                                        <span style="color: #2563eb; font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums;">(+${formatKRW(res.bonusAmount)})</span>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: #00008F; font-weight: 700; background: #eff6ff; padding: 0.15rem 0.4rem; border-radius: 4px;">보너스율: ${((res.bonusAmount / p) * 100).toFixed(0)}%</span>
+                                </div>
+                            </li>
+                            ` : `
                             <li class="data-row promo-row v3-summary-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem; border-top: 1px dashed #cbd5e1; padding-top: 1rem; margin: 0;">
                                 <div style="font-weight: 600; color: #166534; font-size: 0.95rem;">총 프로모션 혜택 <span style="font-size:0.85rem; color:var(--text-muted); font-weight:normal;">(${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''})</span></div>
                                 <div style="display: flex; width: 100%; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
@@ -905,6 +1027,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <span style="font-size: 0.8rem; color: #059669; font-weight: 700; background: #dcfce7; padding: 0.15rem 0.4rem; border-radius: 4px;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
                                 </div>
                             </li>
+                            `}
                         </ul>
                             
                             ${withdrawalPlan !== 'none' ? `
@@ -969,7 +1092,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (withdrawalPlan === '5yr') {
                     let wAmt = 0;
-                    if (term === 2) wAmt = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500));
+                    if (term === 2) wAmt = (comp.id === 'generali' ? 7050 : (comp.id === 'sunlife' ? 7750 : (comp.id === 'axa' ? 8000 : 6500)));
                     else if (term === 5) wAmt = (comp.id === 'chubb' ? 6500 : 0);
 
                     let wStartYear = term === 5 ? 6 : 5;
@@ -1017,7 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let wAmtForIrr = 0;
                 let wStartYear = 99;
                 if (withdrawalPlan === '5yr') {
-                    let wAmtBase = (term === 2) ? (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500)) : (comp.id === 'chubb' ? 6500 : 0);
+                    let wAmtBase = (term === 2) ? (comp.id === 'generali' ? 7050 : (comp.id === 'sunlife' ? 7750 : (comp.id === 'axa' ? 8000 : 6500))) : (comp.id === 'chubb' ? 6500 : 0);
                     wAmtForIrr = pureNominalTotal * (wAmtBase / 100000);
                     // 2년납: 5년말부터(i>4), 5년납: 6년말부터(i>6) - display와 일치
                     wStartYear = (term === 2) ? 4 : 6;
@@ -1081,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const generateTableHtml = (withdrawalPlan, title) => {
                 let annualWithdrawal = 0;
                 if (withdrawalPlan === '5yr') {
-                    if (term === 2) annualWithdrawal = (comp.id === 'generali' ? 6900 : (comp.id === 'sunlife' ? 7500 : 6500));
+                    if (term === 2) annualWithdrawal = (comp.id === 'generali' ? 7050 : (comp.id === 'sunlife' ? 7750 : (comp.id === 'axa' ? 8000 : 6500)));
                     else if (term === 5) annualWithdrawal = (comp.id === 'chubb' ? 6500 : 0);
                     annualWithdrawal = pureNominalTotal * (annualWithdrawal / 100000);
                 } else if (withdrawalPlan === '10yr') {
@@ -1123,7 +1246,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let wPctActualDisplay = totalActual > 0 && annualWithdrawal > 0 ? (annualWithdrawal / totalActual * 100).toFixed(1) + '%' : '-';
                 let dynamicTitle = title;
                 if (withdrawalPlan !== 'none') {
-                    dynamicTitle = title.split(' (매년')[0].trim() + ` (매년 ${wPctActualDisplay})`;
+                    let baseTitle = title.split(' (')[0].trim();
+                    dynamicTitle = `${baseTitle} (실납 대비 연 ${wPctActualDisplay})`;
                 }
 
                 return `
@@ -1131,11 +1255,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h4 style="text-align: center; font-size: 1.1rem; color: #1e293b; margin-bottom: 1rem; font-weight: 800;">${dynamicTitle}</h4>
                         
                         <div style="background: #ecfdf5; border: 1px solid #a7f3d0; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center; ${withdrawalPlan === 'none' ? 'display: none;' : ''}">
-                            <div style="font-size: 1.1rem; color: #065f46; font-weight: 800; font-variant-numeric: tabular-nums; display: flex; justify-content: center; align-items: baseline; gap: 0.3rem; flex-wrap: wrap;">
+                            <div style="font-size: 1.05rem; color: #065f46; font-weight: 800; font-variant-numeric: tabular-nums; display: flex; justify-content: center; align-items: center; gap: 0.4rem; flex-wrap: wrap;">
                                 <span style="font-size: 0.9rem; color: #059669; font-weight: 700;">매년</span>
                                 <span>${annualWithdrawal === 0 ? '-' : formatUSD(annualWithdrawal)}</span>
                                 <span style="font-size: 0.9rem; color: #059669; font-weight: 700;">인출</span>
-                                <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.8;">(${annualWithdrawal === 0 ? '-' : formatKRW(annualWithdrawal)})</span>
+                                <span style="font-size: 0.85rem; font-weight: 700; color: #047857; background: #d1fae5; padding: 0.15rem 0.4rem; border-radius: 4px;">실납 대비 연 ${wPctActualDisplay}</span>
                             </div>
                         </div>
                         
@@ -1211,10 +1335,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <span class="cond-val-lg">${formatUSD(totalActual)} <span class="cond-krw">(${formatKRW(totalActual)})</span></span>
                                     </div>
                                     <div class="cond-row">
-                                        <span class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''})</span></span>
+                                        <span class="cond-label" style="font-weight:700; color: ${comp.id === 'axa' ? '#00008F' : '#15803d'};">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${comp.id === 'axa' ? '선납시 FPDA 보너스 이자 지급' : res.bonusLabel + (isPrepay ? ' + 선납할인' : '')})</span></span>
                                         <div style="text-align:right;">
+                                            ${comp.id === 'axa' ? `
+                                            <span class="cond-val" style="color: #00008F; font-weight: 800;">+${formatUSD(res.bonusAmount)} <span class="cond-krw" style="color: #2563eb;">(+${formatKRW(res.bonusAmount)})</span></span>
+                                            <span class="cond-badge" style="display:block;margin-top:0.2rem; background: #eff6ff; color: #00008F;">보너스율: ${((res.bonusAmount / p) * 100).toFixed(0)}%</span>
+                                            ` : `
                                             <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
                                             <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
+                                            `}
                                         </div>
                                     </div>
                                     <div class="cond-row">
@@ -1227,10 +1356,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <span class="cond-val-lg">${formatUSD(pureNominalTotal)} <span class="cond-krw">(${formatKRW(pureNominalTotal)})</span></span>
                                     </div>
                                     <div class="cond-row">
-                                        <span class="cond-label cond-val-green" style="font-weight:700;">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${res.bonusLabel}${isPrepay ? ' + 선납할인' : ''})</span></span>
+                                        <span class="cond-label" style="font-weight:700; color: ${comp.id === 'axa' ? '#00008F' : '#15803d'};">총 프로모션 혜택 <span class="cond-sub-text" style="font-weight:normal;">(${comp.id === 'axa' ? '선납시 FPDA 보너스 이자 지급' : res.bonusLabel + (isPrepay ? ' + 선납할인' : '')})</span></span>
                                         <div style="text-align:right;">
+                                            ${comp.id === 'axa' ? `
+                                            <span class="cond-val" style="color: #00008F; font-weight: 800;">+${formatUSD(res.bonusAmount)} <span class="cond-krw" style="color: #2563eb;">(+${formatKRW(res.bonusAmount)})</span></span>
+                                            <span class="cond-badge" style="display:block;margin-top:0.2rem; background: #eff6ff; color: #00008F;">보너스율: ${((res.bonusAmount / p) * 100).toFixed(0)}%</span>
+                                            ` : `
                                             <span class="cond-val cond-val-green">-${formatUSD(totalDiscount)} <span class="cond-krw cond-val-green">(-${formatKRW(totalDiscount)})</span></span>
                                             <span class="cond-badge" style="display:block;margin-top:0.2rem;">할인율: ${((totalDiscount / pureNominalTotal) * 100).toFixed(1)}%</span>
+                                            `}
                                         </div>
                                     </div>
                                     <div class="cond-row">
@@ -1249,11 +1383,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
 
-                    <!-- Row 2: 인출플랜 3열 -->
-                    <div class="v4-withdrawal-row">
+                    <!-- Row 2: 인출플랜 -->
+                    <div class="v4-withdrawal-row" style="${comp.id === 'axa' ? 'grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto;' : ''}">
                         ${term === 2 ? generateTableHtml('5yr', '5년말 후 인출플랜') : generateTableHtml('5yr', '6년말 후 인출플랜')}
-                        ${generateTableHtml('10yr', `10년말 후 인출플랜 (매년 ${term === 2 ? '10%' : (comp.id === 'chubb' ? '8.9%' : '9%')})`)}
-                        ${generateTableHtml('20yr', `20년말 후 인출플랜 (매년 ${term === 2 ? '20%' : '18%'})`)}
+                        ${comp.id === 'axa' ? '' : generateTableHtml('10yr', `10년말 후 인출플랜 (매년 ${term === 2 ? '10%' : (comp.id === 'chubb' ? '8.9%' : '9%')})`)}
+                        ${comp.id === 'axa' ? '' : generateTableHtml('20yr', `20년말 후 인출플랜 (매년 ${term === 2 ? '20%' : '18%'})`)}
                     </div>
                 </div>
             `;

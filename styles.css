@@ -230,6 +230,10 @@ label {
     border-top-color: #000000;
 }
 
+.company-card.axa {
+    border-top-color: #00008F;
+}
+
 .comp-header {
     text-align: center;
     margin-bottom: 1.2rem;
@@ -251,6 +255,10 @@ label {
 
 .chubb .comp-title {
     color: #000000;
+}
+
+.axa .comp-title {
+    color: #00008F;
 }
 
 .comp-product {
